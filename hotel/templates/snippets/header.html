@@ -1,0 +1,81 @@
+{% load static %}
+
+<header class="p-3 text-white bg_header_class border-bottom border-dark">
+      <div class="container">
+        <div class="row ">
+          <div class="col-sm d-flex flex-wrap align-items-center justify-content-center">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0">
+              <img src="{% static 'images/copy_logo.png' %}" alt="..." class="">
+            </a>
+          </div>
+          <div class="col-lg flex-wrap justify-content-center align-self-center">
+            <form class="form-inline">
+	            <div class="input-group border rounded border-3 ">
+					<input list="search_list" type="text" class="form-control bg-transparent border-0 text-white" placeholder="Искать услуги для заказов здесь" aria-label="Search" aria-describedby="button-addon2">
+          <datalist id="search_list">
+            {% for element in service_list %}
+              <option value="{{element.0}}">
+            {% endfor %}
+          </datalist>
+					<div class="input-group-append bg-transparent">
+					  <button class="btn" type="submit" id="button-addon2"><img width="25px" src="{% static 'images/search.png' %}" alt="..." class=""></button>
+					</div>
+				</div>
+            </form>
+          </div>
+          <div role="group" class="btn-group col-sm d-flex flex-wrap align-items-center justify-content-center">
+          {% if request.session.usr_login %}
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary dropdown-toggle bg_button_class" data-bs-toggle="dropdown" aria-expanded="false">
+                Профиль
+              </button>
+              <ul class="dropdown-menu">
+                <li><span class="dropdown-item-text"><h6>Здравствуйте, {{request.session.usr_login}}</h6></span></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'client_orders_info' %}">Заказы</a></li>
+                <li><a class="dropdown-item" href="{% url 'client_info' %}">Информация о себе</a></li>
+                <li><a class="dropdown-item" href="{% url 'self_reviews' %}">Мои отзывы</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Выход</a></li>
+              </ul>
+            </div>
+          {% endif %}
+          {% if not request.session.employee_login and not request.session.usr_login %}
+            <a href="{% url 'login' %}" class="p-2 d-flex align-items-center mb-2 mb-lg-0">
+              <button type="button" class="btn btn-outline-light bg_button_class border-0">Вход</button>
+            </a>
+            <a href="{% url 'register' %}" class="p-2 d-flex align-items-center mb-2 mb-lg-0">
+              <button type="button" class="btn btn-outline-light bg_button_class border-0">Регистрация</button>
+            </a>
+            </div>
+          {% endif %}
+          {% if request.session.employee_login %}
+          <div class="btn-group">
+              <button type="button" class="btn btn-primary dropdown-toggle bg_button_class" data-bs-toggle="dropdown" aria-expanded="false">
+                Профиль
+              </button>
+              <ul class="dropdown-menu">
+                <li><span class="dropdown-item-text"><h6>Здравствуйте, {{request.session.employee_login}}</h6></span></li>
+                <li><span class="dropdown-item-text"><h6>Должность: {{request.session.off_position}}</h6></span></li>
+                <li><hr class="dropdown-divider"></li>
+                {% if request.session.off_position == 'Administrator' %}
+                  <li><a class="dropdown-item" href="{% url 'list_of_employees' %}">Управление сотрудниками</a></li>
+                  <li><a class="dropdown-item" href="{% url 'services_info' %}">Управление услугами</a></li>
+                  <li><a class="dropdown-item" href="{% url 'materials_info' %}">Управление материалами</a></li>
+                  <li><a class="dropdown-item" href="{% url 'list_emats' %}">Материалы для заказов</a></li>
+                {% endif %}
+                {% if request.session.off_position == 'Manager' %}
+                  <li><a class="dropdown-item" href="{% url 'manager_orders' %}">Заказы</a></li>
+                {% endif %}
+                {% if request.session.off_position == 'Executor' %}
+                  <li><a class="dropdown-item" href="{% url 'executor_orders' %}">Заказы</a></li>
+                  <li><a class="dropdown-item" href="{% url 'executor_materials' %}">Просмотр материалов для заказов</a></li>
+                {% endif %}
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Выход</a></li>
+              </ul>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </header>

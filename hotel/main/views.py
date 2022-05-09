@@ -1,7 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-def index(request):
-    print(request)
-    return HttpResponse('Hello world')
+from .models import *
+
+def mainpage(request):
+    users = AuthUser.objects.all()
+    phones = Phone.objects.all()
+    context = {
+        'users': users,
+        'phones': phones,
+    }
+    return render(request, 'main/index.html', context)
 

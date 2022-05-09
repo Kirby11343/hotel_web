@@ -1,0 +1,16 @@
+
+  {% for item in users %}
+    <div>
+        <p> {{ item.username }} </p>
+        <p> {{ item.id }} </p>
+        <p> {{ item.password }} </p>
+        <p> {{ item.date_joined }} </p>
+    </div>
+    {% endfor %}
+    {% for item in phones %}
+    <div>
+        <p> {{ item.id }} </p>
+        <p> {{ item.id_user }} </p>
+        <p> {{ item.phone_number }} </p>
+    </div>
+    {% endfor %}

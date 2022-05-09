@@ -1,18 +1,31 @@
 from django.db import models
 
 class AuthUser(models.Model):
-    password = models.CharField(max_length=128)
-    last_login = models.DateTimeField(blank=True, null=True)
-    is_superuser = models.BooleanField()
-    username = models.CharField(unique=True, max_length=150)
-    first_name = models.CharField(max_length=150)
-    last_name = models.CharField(max_length=150)
-    email = models.CharField(max_length=254)
-    is_staff = models.BooleanField()
-    is_active = models.BooleanField()
-    date_joined = models.DateTimeField()
-    role = models.CharField(max_length=100, blank=True, null=True)
+    password = models.CharField(max_length=128, verbose_name='Пароль')
+    last_login = models.DateTimeField(blank=True, null=True, verbose_name='Останній вхід')
+    is_superuser = models.BooleanField(verbose_name='Суперюзер')
+    username = models.CharField(unique=True, max_length=150, verbose_name='Ім\'я користувача')
+    first_name = models.CharField(max_length=150, verbose_name='Ім\'я')
+    last_name = models.CharField(max_length=150, verbose_name='Призвище')
+    email = models.CharField(max_length=254, verbose_name='Email адреса')
+    is_staff = models.BooleanField(verbose_name='Персонал')
+    is_active = models.BooleanField(verbose_name='Активний')
+    date_joined = models.DateTimeField(verbose_name='Дата приєднання')
+    role = models.CharField(max_length=100, blank=True, null=True, verbose_name='Роль')
 
     class Meta:
         managed = False
         db_table = 'auth_user'
+        verbose_name = 'Аутентифікований користувач'
+        verbose_name_plural = 'Аутентифіковані користувачі'
+
+class Phone(models.Model):
+    id_user = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='id_user', verbose_name='id користувача')
+    phone_number = models.CharField(max_length=10, blank=True, null=True, verbose_name='Номер телефону')
+
+    class Meta:
+        verbose_name = 'Номер телефону'
+        verbose_name_plural = 'Номери телефонів'
+        ordering = ['id']
+        managed = False
+        db_table = 'phone'
