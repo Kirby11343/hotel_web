@@ -10,4 +10,5 @@ class PhoneAdmin(admin.ModelAdmin):
     list_filter = ('id_user',)
 
 
+
 admin.site.register(Phone, PhoneAdmin)

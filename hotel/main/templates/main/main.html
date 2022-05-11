@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
 
   {% for item in users %}
     <div>
@@ -14,3 +18,5 @@
         <p> {{ item.phone_number }} </p>
     </div>
     {% endfor %}
+
+{% endblock main %}

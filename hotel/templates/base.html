@@ -1,20 +1,31 @@
 {% load static %}
 
 <!doctype html>
-<html lang="en">
+<html lang="uk">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
-    <link rel="shortcut icon" href="{% static '/images/favicon.png' %}" type="image/png">
+    <link rel="shortcut icon" href="{% static '/images/favicon_odessa_hotel.png' %}" type="image/png">
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
-    <title>COPY</title>
+
+    <title>Готель Одеса</title>
     {% include 'snippets/base_css.html' %}
-    
+    {% block extrastyle %}
+    {% endblock %}
   </head>
   <body>
-    <div class="wrapper">
 
+    <div class="wrapper">
+      {% include 'snippets/header.html' %}
+      {% include 'snippets/front_image.html' %}
+      {% include 'snippets/bar_date.html' %}
+
+      {% include 'snippets/room_type_card.html' %}
+      {% block main %}
+      {% endblock main %}
+
+      {% include 'snippets/footer.html' %}
     </div>
 
   <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>

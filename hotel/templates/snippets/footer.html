@@ -1,17 +1,27 @@
+{% load static %}
+
 <div>
-	<header class="p-3 text-white bg_header_class border-top border-dark">
+	<header class="p-3 text-footer bg_header_class">
       <div class="container">
         <div class="row ">
           <div class="col-sm d-flex flex-wrap align-items-center justify-content-center p-4">
-            © Сеть копировальных центров, Одесса, 2008‑2021
+              <b>© Готель Одеса, 2022</b>
           </div>
-
-
           <div class="col-sm d-flex flex-wrap align-items-center justify-content-center">
-              <a class="link_style" href="https://instagram.com/">Instagram</a>
-              |
-              <a class="link_style" href="https://facebook.com/">Facebook</a>
+              <a class="icon-hover p-1" href="https://instagram.com/">
+                  <img src="{% static '/images/icon_instagram.png' %}" width="35"/>
+              </a>
+              <a class="icon-hover p-1" href="https://facebook.com/">
+                  <img src="{% static '/images/icon_facebook.png' %}" width="35"/>
+              </a>
+              <a class="icon-hover p-1" href="https://t.me/">
+                  <img src="{% static '/images/icon_telegram.png' %}" width="35"/>
+              </a>
+              <a class="icon-hover p-1" href="https://viber.com/">
+                  <img src="{% static '/images/icon_viber_sq.png' %}" width="35"/>
+              </a>
           </div>
+
         </div>
       </div>
     </header>
