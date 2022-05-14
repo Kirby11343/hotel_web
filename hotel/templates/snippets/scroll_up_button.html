@@ -1,0 +1,26 @@
+{% load static %}
+
+{% block scrollup %}
+    <button onclick="topFunction()" id="myBtn" title="На початок">
+        <img src="{% static '/images/arrow_upward.png' %}" alt="" width="25">
+    </button>
+
+    <script>
+        var mybutton = document.getElementById("myBtn");
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+          if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+          } else {
+            mybutton.style.display = "none";
+          }
+        }
+
+
+        function topFunction() {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+        }
+    </script>
+{% endblock %}

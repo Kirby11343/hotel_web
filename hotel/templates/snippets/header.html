@@ -1,8 +1,8 @@
 {% load static %}
 
-<nav class="navbar fixed-top">
+<nav class="navbar">
   <div class="container">
-    <a class="navbar-brand p-4" href="#">
+    <a class="navbar-brand p-4" href="{% url 'main'%}">
       <img src="{% static '/images/favicon_odessa_hotel.png' %}" alt="" width="50"  height="50" class="d-inline-block align-text-top">
       <img src="{% static '/images/odesa.png' %}" alt="" height="50" class="d-inline-block align-text-top">
     </a>
@@ -22,12 +22,12 @@
       </li>
       <li>
         <div class="btn-group">
-          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
             Кабінет
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <li><a class="dropdown-item" href="#">Menu item</a></li>
-            <li><a class="dropdown-item" href="#">Menu item</a></li>
+            <li><a class="dropdown-item" href="{% url 'register'%}">Реєстрація</a></li>
+            <li><a class="dropdown-item" href="{% url 'login'%}">Вхід</a></li>
             <li><a class="dropdown-item" href="#">Menu item</a></li>
           </ul>
         </div>

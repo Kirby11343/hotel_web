@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'debug_toolbar',
     'main.apps.MainConfig',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -116,6 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'main.AuthUser'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
