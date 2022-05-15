@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from .views import *
 from django.contrib.auth import views as auth_views
 
@@ -7,6 +7,8 @@ urlpatterns = [
     path("register", register_request, name="register"),
     path("login", login_request, name="login"),
     path("logout", logout_request, name="logout"),
+
+    path('accounts/', include('allauth.urls')),
 
     path("password_reset", password_reset_request, name="password_reset"),
     path('password_reset/done/',

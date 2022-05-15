@@ -13,7 +13,9 @@
                 {{ login_form.as_p }}
                 <button class="btn btn-primary m-4" type="submit">Вхід</button>
               </form>
-              <p class="text-center">Немає облікового запису? <a href="/register">Створити аккаунт</a>.</p>
+              <p class="text-center"><a href="{% url 'password_reset' %}">Забули пароль?</a></p>
+              <p class="text-center">Немає облікового запису? <a href="{% url 'register' %}">Створити аккаунт</a>.</p>
+
         </div>
         </div>
     </div>
