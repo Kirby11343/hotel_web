@@ -13,7 +13,7 @@ class AuthUser(AbstractUser):
     is_staff = models.BooleanField(verbose_name='Персонал')
     is_active = models.BooleanField(verbose_name='Активний')
     date_joined = models.DateTimeField(verbose_name='Дата приєднання')
-    role = models.CharField(max_length=100, blank=True, null=True, verbose_name='Роль')
+    user_role = models.ForeignKey('UserRole', models.DO_NOTHING, db_column='user_role', verbose_name='Роль')
 
     USERNAME_FIELD = 'username'
 
@@ -22,6 +22,13 @@ class AuthUser(AbstractUser):
         db_table = 'auth_user'
         verbose_name = 'Аутентифікований користувач'
         verbose_name_plural = 'Аутентифіковані користувачі'
+
+class UserRole(models.Model):
+    role_name = models.CharField(primary_key=True, max_length=100)
+
+    class Meta:
+        managed = False
+        db_table = 'user_role'
 
 class Phone(models.Model):
     id_user = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='id_user', verbose_name='id користувача')

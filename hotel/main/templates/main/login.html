@@ -2,19 +2,19 @@
 
 {% block login %}
 
-{% load crispy_forms_tags %}
-
 <!--Login--> 
-<div class="container py-5">
-    <div class="row align-items-center">
-		<div class="col">
-          <h2>Вхід</h2>
-          <form method="POST">
-            {% csrf_token %}
-            {{ login_form|crispy }}
-            <button class="btn btn-primary m-4" type="submit">Login</button>
-          </form>
-          <p class="text-center">Don't have an account? <a href="/register">Create an account</a>.</p>
+<div class="container d-flex justify-content-center w-50">
+    <div class="card-body">
+      <div class="card border-0 ">
+        <div class="card-body rounded-3">
+              <h2>Вхід</h2>
+              <form method="POST">
+                {% csrf_token %}
+                {{ login_form.as_p }}
+                <button class="btn btn-primary m-4" type="submit">Вхід</button>
+              </form>
+              <p class="text-center">Немає облікового запису? <a href="/register">Створити аккаунт</a>.</p>
+        </div>
         </div>
     </div>
 </div>

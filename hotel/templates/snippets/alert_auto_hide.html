@@ -1,0 +1,9 @@
+{% block alert_auto_hide %}
+    <script type="text/javascript">
+        window.setTimeout(function() {
+           $(".alert").fadeTo(400, 0).slideUp(400, function(){
+             $(this).remove();
+          });
+        }, 4000)
+    </script>
+{% endblock %}

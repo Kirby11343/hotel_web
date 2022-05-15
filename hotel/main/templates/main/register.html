@@ -1,22 +1,22 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block register %}
-{% load crispy_forms_tags %}
 
 <!--Register-->
-<div class="container py-5">
-	<div class="row align-items-center">
-		<div class="col">
-			<h2>Реєстрація</h2>
-			<form method="POST">
-				{% csrf_token %}
-				{{ register_form.as_p }}
-				<button class="btn btn-primary m-4" type="submit">Реєстрація</button>
-			</form>
-			<p class="text-center">Якщо у вас уже є обліковий запис, <a href="/login">увійти</a> замість цього.</p>
-		</div>
-	</div>
+<div class="container d-flex justify-content-center w-50">
+    <div class="card-body">
+      <div class="card border-0 ">
+        <div class="card-body rounded-3">
+				<h2>Реєстрація</h2>
+				<form method="POST">
+					{% csrf_token %}
+					{{ register_form.as_p }}
+					<button class="btn btn-primary m-4" type="submit">Реєстрація</button>
+				</form>
+				<p class="text-center">Якщо у вас уже є обліковий запис, <a href="/login">увійти</a> замість цього.</p>
+        </div>
+      </div>
+    </div>
 </div>
 
 {% endblock %}
