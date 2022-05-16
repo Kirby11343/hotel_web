@@ -37,15 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'debug_toolbar',
-    'main.apps.MainConfig',
-    'crispy_forms',
 
+    'main.apps.MainConfig',
+    'rooms.apps.RoomsConfig',
+
+    'crispy_forms',
+    'debug_toolbar',
+    'sorl.thumbnail',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-
     'allauth.socialaccount.providers.google',
 ]
 

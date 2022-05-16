@@ -26,9 +26,6 @@ class AuthUser(AbstractUser):
 class UserRole(models.Model):
     role_name = models.CharField(primary_key=True, max_length=100)
 
-    def __str__(self):
-        return self.name
-
     class Meta:
         managed = False
         db_table = 'user_role'
