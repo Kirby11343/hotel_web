@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block room_type %}
+{% load static %}
+
+<div class="card bg-dark text-white">
+  <img style="max-height: 45vh; object-fit: cover;" src="{% static '/images/odessa_second_screen.jpg' %}" class="card-img" alt="...">
+</div>
+
+{% include 'snippets/bar_date.html' %}
+{% include 'snippets/room_type_card.html' %}
+
+{% endblock %}

@@ -14,6 +14,10 @@ from hotel.settings import EMAIL_HOST_USER
 
 from .models import *
 
+def contacts_request(request):
+
+	return render (request=request, template_name="main/contacts.html")
+
 def password_reset_request(request):
 	if request.method == "POST":
 		password_reset_form = CustomPasswordResetFrom(request.POST)
@@ -85,5 +89,7 @@ class UserView(ListView):
     template_name = 'main/main.html'
     # context_object_name = 'qwe'
     # extra_context = 'qwe'
+
+
 
 

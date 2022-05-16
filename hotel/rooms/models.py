@@ -15,14 +15,14 @@ class Room(models.Model):
 
 
 class RoomType(models.Model):
-    room_type_title = models.CharField(primary_key=True, max_length=100)
-    content = models.CharField(max_length=1000, blank=True, null=True)
+    room_type_title = models.CharField(primary_key=True, max_length=100, verbose_name='Назва типу кімнати')
+    content = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Опис')
 
     class Meta:
         managed = False
         db_table = 'room_type'
         verbose_name = 'Тип номеру'
-        verbose_name_plural = 'Тип номерів'
+        verbose_name_plural = 'Типи номерів'
 
 class Price(models.Model):
     numberofpeople = models.IntegerField()
@@ -61,7 +61,7 @@ class Block(models.Model):
         verbose_name_plural = 'Бронь'
 
 class Gallery(models.Model):
-    room_type_title = models.ForeignKey('RoomType', models.DO_NOTHING, db_column='room_type_title', blank=True, null=True, verbose_name='Назва типу кімнати')
+    room_type_title = models.OneToOneField('RoomType', models.DO_NOTHING, db_column='room_type_title', blank=True, null=True, verbose_name='Назва типу кімнати')
     room_number = models.ForeignKey('Room', models.DO_NOTHING, db_column='room_number', blank=True, null=True, verbose_name='Номер кімнати')
     category_title = models.ForeignKey('Category', models.DO_NOTHING, db_column='category_title', blank=True, null=True, verbose_name='Назва категорії')
     maintenance_title = models.ForeignKey('Maintenance', models.DO_NOTHING, db_column='maintenance_title', blank=True, null=True, verbose_name='Назва обслуговування')

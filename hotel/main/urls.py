@@ -8,6 +8,8 @@ urlpatterns = [
     path("login", login_request, name="login"),
     path("logout", logout_request, name="logout"),
 
+    path("contacts", contacts_request, name="contacts"),
+
     path('accounts/', include('allauth.urls')),
 
     path("password_reset", password_reset_request, name="password_reset"),
