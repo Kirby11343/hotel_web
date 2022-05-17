@@ -9,7 +9,7 @@
           <a href="#"><img src="{{ category.gallery.room_image.url }}" class="card-img-top" alt="..."></a>
           <div class="card-body">
             <h5 class="card-title">{{ category.category_title }}</h5>
-            <p class="card-text">{{ category.category_description }}</p>
+            <p class="card-text">{{ category.category_description|safe }}</p>
             <div class="d-flex justify-content-center ">
               <a href="#" class="btn btn-primary">Детальніше</a>
             </div>
