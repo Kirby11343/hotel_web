@@ -1,15 +1,14 @@
 from django.contrib import admin
 from .models import *
 from django import forms
+from .forms import *
 
-class RoomTypeAdminForm(forms.ModelForm):
-    class Meta:
-        model = RoomType
-
-        widgets = {
-            'content': forms.Textarea
-        }
-        fields = '__all__' # required for Django 3.x
+class CategoryAdmin(admin.ModelAdmin):
+    form = CategoryAdminForm
+    list_display = ('category_title', 'category_description',)
+    list_display_links = ('category_title',)
+    search_fields = ('category_title',)
+    list_editable = ('category_description',)
 
 class GalleryAdmin(admin.ModelAdmin):
     list_display = ('id', 'room_type_title', 'room_number', 'category_title', 'maintenance_title', 'room_image', 'thumbnail_preview')
@@ -38,5 +37,5 @@ admin.site.register(Rate)
 admin.site.register(Price)
 admin.site.register(Block)
 admin.site.register(Gallery, GalleryAdmin)
-admin.site.register(Category)
+admin.site.register(Category, CategoryAdmin)
 admin.site.register(Maintenance)

@@ -3,6 +3,12 @@
 {% block gallery %}
 {% load static %}
 
+<div class="card bg-dark text-white">
+  <img style="max-height: 45vh; object-fit: cover;" src="{% static '/images/odessa_fourth_screen.jpg' %}" class="card-img" alt="...">
+</div>
+
+{% include 'snippets/bar_date.html' %}
+
 <div class="container d-flex justify-content-center">
     <div class="card-body">
       <div class="card border-0 ">

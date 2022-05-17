@@ -86,8 +86,8 @@ class Gallery(models.Model):
         verbose_name_plural = 'Галереї'
 
 class Category(models.Model):
-    category_title = models.CharField(primary_key=True, max_length=100)
-    category_description = models.CharField(max_length=1000, blank=True, null=True)
+    category_title = models.CharField(primary_key=True, max_length=100,  verbose_name='Назва категорії')
+    category_description = models.CharField(max_length=1000, blank=True, null=True,  verbose_name='Опис категорії')
 
     class Meta:
         managed = False

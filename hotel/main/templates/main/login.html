@@ -2,21 +2,34 @@
 
 {% block login %}
 
+{% load socialaccount %}
+{% load static %}
 <!--Login--> 
 <div class="container d-flex justify-content-center w-50">
     <div class="card-body">
       <div class="card border-0 ">
-        <div class="card-body rounded-3">
-              <h2>Вхід</h2>
-              <form method="POST">
-                {% csrf_token %}
-                {{ login_form.as_p }}
-                <button class="btn btn-primary m-4" type="submit">Вхід</button>
-              </form>
-              <p class="text-center"><a href="{% url 'password_reset' %}">Забули пароль?</a></p>
-              <p class="text-center">Немає облікового запису? <a href="{% url 'register' %}">Створити аккаунт</a>.</p>
+            <div class="card-body rounded-3">
+                  <h2>Вхід</h2>
+                  <form method="POST">
+                    {% csrf_token %}
+                    {{ login_form.as_p }}
+                    <button class="btn btn-primary m-4" type="submit">Вхід</button>
+                  </form>
+                  <p class="text-center"><a href="{% url 'password_reset' %}">Забули пароль?</a></p>
+                  <p class="text-center">Немає облікового запису? <a href="{% url 'register' %}">Створити аккаунт</a>.</p>
 
-        </div>
+            </div>
+
+                <div style="width: 100%; height: 15px; border-bottom: 1px solid lightgray; text-align: center">
+					<span class="text-muted" style="margin-top:-15% !important; font-size: 11px; background-color: white; padding: 0px 10px;">
+					  Або вхід за допомогою
+					</span>
+				</div>
+
+				<div class="signin text-center">
+					<a href="{% provider_login_url 'google' %}" class="text-dark"><img class="p-4" src="{% static '/images/icon_google.png' %}" style="height:100px"></a>
+				</div>
+
         </div>
     </div>
 </div>

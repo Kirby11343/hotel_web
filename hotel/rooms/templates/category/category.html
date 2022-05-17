@@ -3,6 +3,12 @@
 {% block category %}
 {% load static %}
 
+<div class="card bg-dark text-white">
+  <img style="max-height: 45vh; object-fit: cover;" src="{% static '/images/odessa_third_screen.jpg' %}" class="card-img" alt="...">
+</div>
 
+{% include 'snippets/bar_date.html' %}
+
+{% include 'snippets/category_type_card.html' %}
 
 {% endblock %}

@@ -1,0 +1,22 @@
+{% load static %}
+
+<div class="container">
+  <div class="card m-5 border-0 rounded-3">
+    <div class="card-body ">
+      <div class="d-flex flex-wrap justify-content-center m-4">
+        {% for category in object_list %}
+        <div class="card card-hover m-4" style="width: 25rem;">
+          <a href="#"><img src="{{ category.gallery.room_image.url }}" class="card-img-top" alt="..."></a>
+          <div class="card-body">
+            <h5 class="card-title">{{ category.category_title }}</h5>
+            <p class="card-text">{{ category.category_description }}</p>
+            <div class="d-flex justify-content-center ">
+              <a href="#" class="btn btn-primary">Детальніше</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

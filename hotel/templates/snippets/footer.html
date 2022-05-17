@@ -1,6 +1,36 @@
 {% load static %}
 
 
+    <footer class="ftr p-3 text-footer bg_footer_class">
+          <div class="container">
+              <div class="row">
+                <div class="text-center col-4 my-auto">
+                    <a class="navbar-brand p-4" href="{% url 'main'%}">
+                      <img src="{% static '/images/favicon_odessa_hotel_blue.png' %}" alt="" width="50"  height="50">
+                      <img src="{% static '/images/odesa_blue.png' %}" alt="" height="50">
+                    </a>
+                </div>
+                <div class="text-left col-4">
+                  <ul>
+                      <ol><h4>Готель в сердці Одеси</h4></ol>
+                      <ol><a class="t_d_none" href="{% url 'main' %}">Готель Одеса</a></ol>
+                      <ol><a class="t_d_none" href="{% url 'room_type' %}">Номера та ціни</a></ol>
+                      <ol><a class="t_d_none" href="{% url 'category' %}">Категорії додаткових послуг</a></ol>
+                      <ol><a class="t_d_none" href="{% url 'gallery' %}">Галерея</a></ol>
+                  </ul>
+                </div>
+                <div class="text-left col-4">
+                    <ul>
+                        <ol><h4>Контакти</h4></ol>
+                        <ol><a class="t_d_none" href="https://www.google.com/maps/@46.5184985,30.7924513,12202m/data=!3m1!1e3">Odesa, 26/1, Test St.</a></ol>
+                        <ol><a class="t_d_none" href="mailto:brandodesa@htl.odesa.ua">brandodesa@htl.odesa.ua</a></ol>
+                        <ol><a class="t_d_none" href="tel:+38 044 444 44 44">+38 044 444 44 44</a></ol>
+                    </ul>
+                </div>
+              </div>
+            </div>
+    </footer>
+
 	<footer class="ftr p-3 text-footer bg_header_class">
       <div class="container">
         <div class="row ">

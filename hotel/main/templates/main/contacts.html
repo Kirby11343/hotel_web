@@ -1,7 +1,12 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block contacts %}
 
-TEST
+<div class="card bg-dark text-white">
+  <img style="max-height: 45vh; object-fit: cover;" src="{% static '/images/odessa_fifth_screen.jpg' %}" class="card-img" alt="...">
+</div>
+
+{% include 'snippets/bar_date.html' %}
 
 {% endblock %}
