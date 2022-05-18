@@ -6,7 +6,17 @@
       <div class="d-flex flex-wrap justify-content-center m-4">
         {% for category in object_list %}
         <div class="card card-hover m-4" style="width: 25rem;">
-          <a href="#"><img src="{{ category.gallery.room_image.url }}" class="card-img-top" alt="..."></a>
+
+          <div id="carouselSlidesOnly{{ forloop.counter0 }}" class="carousel slide" data-ride="carousel" >
+            <div class="carousel-inner">
+              {% for img in category.gallery_set.all %}
+              <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}" data-bs-interval="2000">
+                  <a href="#"><img class="d-block w-100" src="{{ img.room_image.url }}"></a>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+
           <div class="card-body">
             <h5 class="card-title">{{ category.category_title }}</h5>
             <p class="card-text">{{ category.category_description|safe }}</p>

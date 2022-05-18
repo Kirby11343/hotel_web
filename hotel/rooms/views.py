@@ -17,3 +17,7 @@ class RoomTypeListView(ListView):
 class CategoryListView(ListView):
     model = Category
     template_name = 'category/category.html'
+
+    # def get_queryset(self):
+    #     category_title = self.kwargs['category_title']
+    #     return Category.objects.filter(category_title=category_title)
