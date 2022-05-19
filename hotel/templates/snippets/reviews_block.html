@@ -1,0 +1,51 @@
+{% load static %}
+
+<footer class="ftr p-3 text-footer bg_footer_class">
+          <div class="container">
+              <div class="row">
+                <div class="text-center col-12">
+                    <h2>Коментарі</h2>
+                    <p>Найкращій готель на основі коментарів гостей</p>
+                </div>
+              </div>
+              <div class="row align-items-center h-100">
+                <div class="col-6 mx-auto text-right">
+                    <img style="height: 300px;" src="{% static '/images/view_mainpage.jpg' %}" alt="...">
+                </div>
+                <div class="col-6 mx-auto">
+                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                      <div class="carousel-inner">
+                          {% for review in review_list %}
+                          <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}" data-bs-interval="4000">
+                                <figure class="text-center">
+                                  <blockquote class="blockquote">
+                                    <p>{{ review.content|safe }}</p>
+                                  </blockquote>
+                                  <figcaption class="blockquote-footer">
+                                    <b>{{ review.author }}</b>, {{ review.timestamp_review|date:"d/m/y" }}
+                                  </figcaption>
+                                </figure>
+                          </div>
+                          {% endfor %}
+                      </div>
+                      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Попередня</span>
+                      </button>
+                      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Наступна</span>
+                      </button>
+                    </div>
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="text-center col-12 mt-4">
+                    <div class="d-flex justify-content-center ">
+                      <a href="#" class="btn btn-lg btn-primary">Залишити коментар</a>
+                    </div>
+                </div>
+              </div>
+            </div>
+    </footer>

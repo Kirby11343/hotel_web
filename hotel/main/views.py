@@ -1,5 +1,7 @@
+from django.db.models import Model
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.views import generic
 from django.views.generic import ListView, DetailView, CreateView, DeleteView
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
@@ -85,10 +87,22 @@ def logout_request(request):
 	return redirect('main')
 
 class UserView(ListView):
-    model = AuthUser
-    template_name = 'main/main.html'
-    # context_object_name = 'qwe'
-    # extra_context = 'qwe'
+	template_name = 'main/main.html'
+	model = AuthUser
+	context_object_name = 'user_list'
+	def get_context_data(self, **kwargs):
+		context = super(UserView, self).get_context_data(**kwargs)
+		context.update({
+			'review_list': Reviews.objects.order_by('id'),
+		})
+		return context
+
+	def get_queryset(self):
+		return Reviews.objects.order_by('id')
+
+class CreateReviewView(CreateView):
+	model = Reviews
+	fields = ['content']
 
 
 

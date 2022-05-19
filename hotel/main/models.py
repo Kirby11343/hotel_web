@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-
 class AuthUser(AbstractUser):
     password = models.CharField(max_length=128, verbose_name='Пароль')
     last_login = models.DateTimeField(blank=True, null=True, verbose_name='Останній вхід')
@@ -40,3 +39,15 @@ class Phone(models.Model):
         ordering = ['id']
         managed = False
         db_table = 'phone'
+
+class Reviews(models.Model):
+    author = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='author', verbose_name='Автор')
+    content = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Зміст')
+    timestamp_review = models.DateTimeField(auto_now_add=True, verbose_name='Позначка часу')
+
+    class Meta:
+        managed = False
+        db_table = 'reviews'
+        ordering = ['id']
+        verbose_name = 'Коментар'
+        verbose_name_plural = 'Коментарі'

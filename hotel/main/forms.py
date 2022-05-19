@@ -1,7 +1,18 @@
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordResetForm
-from main.models import AuthUser, UserRole
+from main.models import *
 from datetime import datetime
+
+class ReviewsAdminForm(forms.ModelForm):
+    content = forms.CharField(widget=CKEditorUploadingWidget(), label="Зміст")
+    class Meta:
+        model = Reviews
+        # widgets = {
+        #     'content': forms.Textarea
+        # }
+        fields = '__all__'
+
 
 class CustomPasswordResetFrom(PasswordResetForm):
 	email = forms.EmailField(label='Email адреса', widget=forms.EmailInput(attrs={'class': 'form-control'}))
