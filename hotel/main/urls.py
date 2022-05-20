@@ -10,6 +10,9 @@ urlpatterns = [
 
     path("contacts", contacts_request, name="contacts"),
 
+    path("create_review", CreateReviewView.as_view(), name="create_review"),
+    path("detail_review/<int:pk>", DetailReviewView.as_view(), name="detail_review"),
+
     path('accounts/', include('allauth.urls')),
 
     path("password_reset", password_reset_request, name="password_reset"),

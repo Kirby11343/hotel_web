@@ -1,0 +1,19 @@
+{% load static %}
+
+<div class="container">
+  <div class="card m-5 border-0 rounded-3">
+    <div class="card-body ">
+      <div class="d-flex flex-wrap justify-content-center m-4">
+        {% for maintenance in maintenances %}
+        <div class="card card-hover m-4" style="width: 25rem;">
+          <div class="card-body">
+            <h6 class="card-title">Категорія: {{ maintenance.category }}</h6>
+            <h5 class="card-title">{{ maintenance.maintenance_title }}</h5>
+            <p class="card-text">{{ maintenance.maintenance_price }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

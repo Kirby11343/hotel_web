@@ -1,8 +1,23 @@
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordResetForm
+from django.http import request
+from django.contrib.auth.models import AbstractUser
+from django.shortcuts import redirect
+
 from main.models import *
 from datetime import datetime
+
+class CreateReviewForm(forms.ModelForm):
+	content = forms.CharField(label='Зміст', widget=forms.Textarea(attrs={'class': 'form-control'}))
+	class Meta:
+		model = Reviews
+		fields = ('author', 'content',)
+	def save(self, commit=True):
+		review = super(CreateReviewForm, self).save(commit=False)
+		if commit:
+			review.save()
+		return redirect('detail_review')
 
 class ReviewsAdminForm(forms.ModelForm):
     content = forms.CharField(widget=CKEditorUploadingWidget(), label="Зміст")

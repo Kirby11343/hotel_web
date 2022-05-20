@@ -1,6 +1,11 @@
 from django.db import models
+from django.template.defaultfilters import slugify
+from django.urls import reverse
 from sorl.thumbnail import get_thumbnail
 from django.utils.html import format_html
+
+from main.models import AuthUser
+
 
 class Room(models.Model):
     room_number = models.IntegerField(primary_key=True)
@@ -17,6 +22,18 @@ class Room(models.Model):
 class RoomType(models.Model):
     room_type_title = models.CharField(primary_key=True, max_length=100, verbose_name='Назва типу кімнати')
     content = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Опис')
+    slug = models.SlugField(null=False, unique=True, verbose_name='Slug, шлях /room_type_detail/slug/')
+
+    def __str__(self):
+        return self.room_type_title
+
+    def get_absolute_url(self):
+        return reverse("room_type_detail", kwargs={"slug": self.slug})
+
+    def save(self, *args, **kwargs):  # new
+        if not self.slug:
+            self.slug = slugify(self.room_type_title)
+        return super().save(*args, **kwargs)
 
     class Meta:
         managed = False
@@ -88,6 +105,18 @@ class Gallery(models.Model):
 class Category(models.Model):
     category_title = models.CharField(primary_key=True, max_length=100,  verbose_name='Назва категорії')
     category_description = models.CharField(max_length=1000, blank=True, null=True,  verbose_name='Опис категорії')
+    slug = models.SlugField(null=False, unique=True, verbose_name='Slug, шлях /category_detail/slug/')
+
+    def __str__(self):
+        return self.category_title
+
+    def get_absolute_url(self):
+        return reverse("category_detail", kwargs={"slug": self.slug})
+
+    def save(self, *args, **kwargs):  # new
+        if not self.slug:
+            self.slug = slugify(self.category_title)
+        return super().save(*args, **kwargs)
 
     class Meta:
         managed = False
@@ -96,12 +125,32 @@ class Category(models.Model):
         verbose_name_plural = 'Категорії'
 
 class Maintenance(models.Model):
-    maintenance_title = models.CharField(primary_key=True, max_length=100)
-    maintenance_price = models.IntegerField()
-    category = models.ForeignKey(Category, models.DO_NOTHING, db_column='category')
+    maintenance_title = models.CharField(primary_key=True, max_length=100,  verbose_name='Назва послуги')
+    maintenance_price = models.IntegerField(verbose_name='Ціна')
+    category = models.ForeignKey(Category, models.DO_NOTHING, db_column='category', verbose_name='Категорія')
 
     class Meta:
         managed = False
         db_table = 'maintenance'
         verbose_name = 'Обслуговування'
         verbose_name_plural = 'Обслуговування'
+
+class Order(models.Model):
+    category = models.ForeignKey(Category, models.DO_NOTHING, db_column='category', blank=True, null=True, verbose_name='Категорія')
+    room = models.ForeignKey(Room, models.DO_NOTHING, db_column='room', blank=True, null=True, verbose_name='Номер')
+    client = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='client', blank=True, null=True, verbose_name='Клієнт')
+    registration_date = models.DateTimeField(blank=True, null=True, verbose_name='Дата реєстрації')
+    is_paid_for = models.BooleanField(verbose_name='Сплачено?')
+    is_confirmed = models.BooleanField(verbose_name='Підтверджено?')
+    living_start_date = models.DateField(verbose_name='Дата заїду')
+    living_finish_date = models.DateField(verbose_name='Дата виїзду')
+    comment = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Коментар')
+
+    def get_absolute_url(self):
+        return reverse("order_detail", kwargs={"id": self.pk})
+
+    class Meta:
+        managed = False
+        db_table = 'order'
+        verbose_name = 'Замовлення'
+        verbose_name_plural = 'Замовлення'

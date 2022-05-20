@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.urls import reverse
+
 
 class AuthUser(AbstractUser):
     password = models.CharField(max_length=128, verbose_name='Пароль')
@@ -22,23 +24,15 @@ class AuthUser(AbstractUser):
         verbose_name = 'Аутентифікований користувач'
         verbose_name_plural = 'Аутентифіковані користувачі'
 
+    def __str__(self):
+        return self.username
+
 class UserRole(models.Model):
     role_name = models.CharField(primary_key=True, max_length=100)
 
     class Meta:
         managed = False
         db_table = 'user_role'
-
-class Phone(models.Model):
-    id_user = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='id_user', verbose_name='id користувача')
-    phone_number = models.CharField(max_length=10, blank=True, null=True, verbose_name='Номер телефону')
-
-    class Meta:
-        verbose_name = 'Номер телефону'
-        verbose_name_plural = 'Номери телефонів'
-        ordering = ['id']
-        managed = False
-        db_table = 'phone'
 
 class Reviews(models.Model):
     author = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='author', verbose_name='Автор')
@@ -51,3 +45,6 @@ class Reviews(models.Model):
         ordering = ['id']
         verbose_name = 'Коментар'
         verbose_name_plural = 'Коментарі'
+
+    def get_absolute_url(self):
+        return reverse('detail_review', kwargs={'pk': self.pk})

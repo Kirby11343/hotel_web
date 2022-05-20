@@ -1,0 +1,13 @@
+<form method="post">
+    {% csrf_token %}
+    Користувач: <b>{{ user.username }}</b>
+    <select hidden name="author" required="" id="id_author">
+        <option value="{{ user.id }}" selected>{{ user.username }}</option>
+    </select>
+    <br>
+    {{form.content}}
+    <br>
+    <br>
+    <input type="submit" value="Залишити">
+</form>
+

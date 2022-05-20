@@ -1,0 +1,25 @@
+{% load static %}
+
+<div class="container">
+  <div class="card m-5 border-0 rounded-3">
+    <div class="card-body ">
+      <div class="d-flex flex-wrap justify-content-center m-4">
+        {% for room in rooms %}
+        <div class="card card-hover m-4" style="width: 25rem;">
+          {% for img in room.gallery_set.all %}
+            <img class="d-block w-100" src="{{ img.room_image.url }}">
+          {% endfor %}
+
+          <div class="card-body">
+            <h5 class="card-title">{{ room.room_number }}</h5>
+            <p class="card-text">{{ room.room_type }}</p>
+<!--            <div class="d-flex justify-content-center ">-->
+<!--              <a href="" class="btn btn-primary">Детальніше</a>-->
+<!--            </div>-->
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

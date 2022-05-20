@@ -1,11 +1,12 @@
 from django.db.models import Model
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.urls import reverse_lazy
 from django.views import generic
-from django.views.generic import ListView, DetailView, CreateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
-from .forms import NewUserForm, UserLoginForm, CustomPasswordResetFrom
+from .forms import NewUserForm, UserLoginForm, CustomPasswordResetFrom, CreateReviewForm
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode
@@ -13,6 +14,7 @@ from django.template.loader import render_to_string
 from django.db.models.query_utils import Q
 from django.core.mail import send_mail, BadHeaderError
 from hotel.settings import EMAIL_HOST_USER
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import *
 
@@ -100,9 +102,24 @@ class UserView(ListView):
 	def get_queryset(self):
 		return Reviews.objects.order_by('id')
 
-class CreateReviewView(CreateView):
+class CreateReviewView(LoginRequiredMixin, CreateView):
+	form_class = CreateReviewForm
 	model = Reviews
-	fields = ['content']
+	template_name = 'main/review/create_review.html'
+
+class DetailReviewView(LoginRequiredMixin, DetailView):
+	model = Reviews
+	template_name = 'main/review/detail_review.html'
+
+class UpdateReviewView(LoginRequiredMixin, UpdateView):
+	form_class = CreateReviewForm
+	model = Reviews
+	template_name = 'main/review/update_review.html'
+
+class DeleteReviewView(LoginRequiredMixin, DeleteView):
+	model = Reviews
+	success_url = reverse_lazy('main')
+
 
 
 

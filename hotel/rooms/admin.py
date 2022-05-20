@@ -29,6 +29,7 @@ class RoomTypeAdmin(admin.ModelAdmin):
     list_editable = ('content',)
 
 
+admin.site.register(Order)
 admin.site.register(Room)
 admin.site.register(RoomType, RoomTypeAdmin)
 admin.site.register(Rate)

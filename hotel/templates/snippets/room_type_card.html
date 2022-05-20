@@ -6,12 +6,12 @@
       <div class="d-flex flex-wrap justify-content-center m-4">
         {% for room_type in object_list %}
         <div class="card card-hover m-4" style="width: 25rem;">
-          <a href="#"><img src="{{ room_type.gallery.room_image.url }}" class="card-img-top" alt="..."></a>
+          <a href="{% url 'room_type_detail' room_type.slug %}"><img src="{{ room_type.gallery.room_image.url }}" class="card-img-top" alt="..."></a>
           <div class="card-body">
             <h5 class="card-title">{{ room_type.room_type_title }}</h5>
             <p class="card-text">{{ room_type.content|safe }}</p>
             <div class="d-flex justify-content-center ">
-              <a href="#" class="btn btn-primary">Детальніше</a>
+              <a href="{% url 'room_type_detail' room_type.slug %}" class="btn btn-primary">Детальніше</a>
             </div>
           </div>
         </div>

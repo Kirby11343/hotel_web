@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block category %}
+{% block category_detail %}
 {% load static %}
 
 <div class="card bg-dark text-white">
@@ -11,9 +11,9 @@
 
 <div class="pt-5 pb-3 w-100 container justify-content-center">
   <h2 class="text-center">Категорії додаткових послуг</h2>
-  <p class="text-center">Готель також пропонує скористатися додатковими послугами за наступними категоріями.</p>
+  <p class="text-center">Готель також пропонує скористатися додатковими послугами.</p>
 </div>
 
-{% include 'snippets/category_type_card.html' %}
+{% include 'snippets/maintenance_card.html' %}
 
 {% endblock %}
