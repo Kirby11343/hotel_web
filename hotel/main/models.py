@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 
 class AuthUser(AbstractUser):
@@ -39,4 +39,4 @@ class Reviews(models.Model):
         verbose_name_plural = 'Коментарі'
 
     def get_absolute_url(self):
-        return reverse('detail_review', kwargs={'pk': self.pk})
+        return reverse_lazy('detail_review', kwargs={'pk': self.pk})

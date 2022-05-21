@@ -138,7 +138,7 @@ class Order(models.Model):
     comment = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Коментар')
 
     def get_absolute_url(self):
-        return reverse("order_detail", kwargs={"id": self.pk})
+        return reverse("order_detail", kwargs={"pk": self.pk})
 
     class Meta:
         managed = False

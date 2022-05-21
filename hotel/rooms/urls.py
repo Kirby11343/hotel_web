@@ -7,4 +7,6 @@ urlpatterns = [
     path('room_type_detail/<slug:slug>/', RoomTypeDetailView.as_view(), name="room_type_detail"),
     path('category/', CategoryListView.as_view(), name="category"),
     path('category_detail/<slug:slug>/', CategoryDetailView.as_view(), name="category_detail"),
+    path('create_order/', OrderCreateView.as_view(), name="create_order"),
 ]
+

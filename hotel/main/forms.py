@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, Pass
 from django.http import request
 from django.contrib.auth.models import AbstractUser
 from django.shortcuts import redirect
+from django.urls import reverse_lazy
 
 from main.models import *
 from datetime import datetime
@@ -17,7 +18,7 @@ class CreateReviewForm(forms.ModelForm):
 		review = super(CreateReviewForm, self).save(commit=False)
 		if commit:
 			review.save()
-		return redirect('detail_review/<int:pk>')
+		return reverse_lazy('detail_review')
 
 class ReviewsAdminForm(forms.ModelForm):
     content = forms.CharField(widget=CKEditorUploadingWidget(), label="Зміст")

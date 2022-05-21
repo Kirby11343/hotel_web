@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block create_order %}
+
+<select hidden name="client" id="id_client">
+  <option value="{{ user.id }}" selected>{{ user.username }}</option>
+</select>
+{{ user.username }}
+
+<select name="room" id="id_room">
+  <option id="room" value="" selected>Room object ()</option>
+</select>
+
+<script type="text/javascript">
+    var i = sessionStorage.getItem("id_room")
+    document.getElementById("room").value = i;
+    console.log(i)
+    console.log("HERE")
+</script>
+
+{{ form.maintenance }}
+{{ form.room }}
+{{ form.registration_date }}
+{{ form.living_start_date }}
+{{ form.living_finish_date }}
+{{ form.comment }}
+
+
+{% endblock %}

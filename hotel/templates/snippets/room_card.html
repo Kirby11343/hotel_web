@@ -1,5 +1,13 @@
 {% load static %}
 
+<script type="text/javascript">
+function reply_click(id, type)
+  {
+      sessionStorage.setItem('id_room', id);
+      sessionStorage.setItem('type_room', type);
+  }
+</script>
+
 <div class="container">
   <div class="card m-5 border-0 rounded-3">
     <div class="card-body ">
@@ -7,15 +15,33 @@
         {% for room in rooms %}
         <div class="card card-hover m-4" style="width: 25rem;">
           {% for img in room.gallery_set.all %}
-            <img class="d-block w-100" src="{{ img.room_image.url }}">
+            <a href="{% url 'create_order' %}"><img class="d-block w-100" src="{{ img.room_image.url }}"></a>
           {% endfor %}
 
           <div class="card-body">
-            <h5 class="card-title">{{ room.room_number }}</h5>
-            <p class="card-text">{{ room.room_type }}</p>
-<!--            <div class="d-flex justify-content-center ">-->
-<!--              <a href="" class="btn btn-primary">Детальніше</a>-->
-<!--            </div>-->
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col"><img height="25px" src="{% static 'icons/123.svg' %}"> Номер кімнати</th>
+                  <th scope="col"><img height="25px" src="{% static 'icons/list.svg' %}"> Тип номеру</th>
+                  <th scope="col"><img height="25px" src="{% static 'icons/people.svg' %}"> Кількість осіб</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ room.room_number }}</td>
+                  <td>{{ room.room_type }}</td>
+                  <td>{{ room.number_of_residents }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="d-flex justify-content-center ">
+              <a href="{% url 'create_order' %}">
+                <button onclick="reply_click({{ room.room_number }}, '{{ room.room_type }}')" type="button" class="btn btn-primary">Забронювати</button>
+              </a>
+            </div>
           </div>
         </div>
         {% endfor %}
@@ -23,3 +49,4 @@
     </div>
   </div>
 </div>
+

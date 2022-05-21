@@ -1,6 +1,10 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
+
+from .forms import CreateOrderForm
 from .models import *
 from django.views.generic import ListView, DetailView, CreateView, DeleteView
+
 
 # Create your views here.
 
@@ -8,7 +12,6 @@ class GalleryListView(ListView):
     model = Gallery
     template_name = 'gallery/gallery.html'
     paginate_by = 18
-
 
 class RoomTypeListView(ListView):
     model = RoomType
@@ -39,3 +42,9 @@ class RoomTypeDetailView(DetailView):
         context = super(RoomTypeDetailView, self).get_context_data(*args, **kwargs)
         context['rooms'] = Room.objects.all().filter(room_type=self.object)
         return context
+
+class OrderCreateView(LoginRequiredMixin, CreateView):
+    model = Order
+    form_class = CreateOrderForm
+    # fields = ('maintenance', 'room', 'client', 'living_start_date', 'living_finish_date', 'comment')
+    template_name = 'order/create_order.html'
