@@ -10,6 +10,24 @@
           <div class="card-body">
             <h5 class="card-title">{{ room_type.room_type_title }}</h5>
             <p class="card-text">{{ room_type.content|safe }}</p>
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col"><img height="30px" src="{% static 'icons/people.svg' %}"> Особи</th>
+                  <th scope="col"><img height="27px" src="{% static 'icons/cash-coin.svg' %}"> Вартість/день</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for price_per_day in room_type.price_set.all %}
+                <tr>
+                  <td>{{ price_per_day.numberofpeople }}</td>
+                  <td>{{ price_per_day.rate }} грн.</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+
             <div class="d-flex justify-content-center ">
               <a href="{% url 'room_type_detail' room_type.slug %}" class="btn btn-primary">Детальніше</a>
             </div>

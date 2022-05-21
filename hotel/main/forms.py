@@ -17,7 +17,7 @@ class CreateReviewForm(forms.ModelForm):
 		review = super(CreateReviewForm, self).save(commit=False)
 		if commit:
 			review.save()
-		return redirect('detail_review')
+		return redirect('detail_review/<int:pk>')
 
 class ReviewsAdminForm(forms.ModelForm):
     content = forms.CharField(widget=CKEditorUploadingWidget(), label="Зміст")
@@ -58,7 +58,6 @@ class NewUserForm(UserCreationForm):
 		user.is_active = 1
 		user.is_staff = 0
 		user.date_joined = datetime.now()
-		user.user_role = UserRole.objects.get(role_name='Користувач')
 		user.email = self.cleaned_data['email']
 		if commit:
 			user.save()

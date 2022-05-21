@@ -14,7 +14,6 @@ class AuthUser(AbstractUser):
     is_staff = models.BooleanField(verbose_name='Персонал')
     is_active = models.BooleanField(verbose_name='Активний')
     date_joined = models.DateTimeField(verbose_name='Дата приєднання')
-    user_role = models.ForeignKey('UserRole', models.DO_NOTHING, db_column='user_role', verbose_name='Роль')
 
     USERNAME_FIELD = 'username'
 
@@ -26,13 +25,6 @@ class AuthUser(AbstractUser):
 
     def __str__(self):
         return self.username
-
-class UserRole(models.Model):
-    role_name = models.CharField(primary_key=True, max_length=100)
-
-    class Meta:
-        managed = False
-        db_table = 'user_role'
 
 class Reviews(models.Model):
     author = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='author', verbose_name='Автор')

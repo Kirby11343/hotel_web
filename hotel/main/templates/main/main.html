@@ -6,6 +6,20 @@
   {% include 'snippets/front_image.html' %}
   {% include 'snippets/bar_date.html' %}
 
+  {% block image02 %}
+    <div class="container mt-5 mb-5">
+      <div class="row align-items-center h-100">
+        <div class="col text-center mx-auto">
+          <h1>Готель з історією у центрі Одеси!</h1>
+          <p>Чотиризірковий готель Одеса розташований поблизу Чорного моря в самому серці міста. За привабливими цінами готелю готель може бути запропонований цілодобовим обслуговуванням і найкращим у місті панорамним видом на Чорне море.</p>
+        </div>
+        <div class="col">
+          <img width="500px" src="{% static 'images/odessa_main_screen_02.jpg' %}">
+        </div>
+      </div>
+    </div>
+  {% endblock %}
+
   {% include 'snippets/reviews_block.html' %}
   {% include 'snippets/footer_image.html' %}
 

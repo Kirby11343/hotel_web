@@ -6,10 +6,19 @@
       <div class="d-flex flex-wrap justify-content-center m-4">
         {% for maintenance in maintenances %}
         <div class="card card-hover m-4" style="width: 25rem;">
+          {% for image in maintenance.gallery_set.all %}
+              <img class="d-block w-100"c src="{{ image.room_image.url }}">
+            {% endfor %}
           <div class="card-body">
             <h6 class="card-title">Категорія: {{ maintenance.category }}</h6>
             <h5 class="card-title">{{ maintenance.maintenance_title }}</h5>
+            <p class="card-text">{{ maintenance.maintenance_description }}</p>
+            {% if maintenance.maintenance_price != None %}
             <p class="card-text">{{ maintenance.maintenance_price }}</p>
+            {% endif %}
+            {% if maintenance.pdf_file.url != None %}
+              <a href="{{ maintenance.pdf_file.url }}"><button type="button" class="btn btn-primary">Відкрити меню</button></a>
+            {% endif %}
           </div>
         </div>
         {% endfor %}

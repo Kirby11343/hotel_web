@@ -7,7 +7,7 @@ from django.views.generic import ListView, DetailView, CreateView, DeleteView
 class GalleryListView(ListView):
     model = Gallery
     template_name = 'gallery/gallery.html'
-    paginate_by = 20
+    paginate_by = 18
 
 
 class RoomTypeListView(ListView):

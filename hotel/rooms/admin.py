@@ -11,7 +11,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class GalleryAdmin(admin.ModelAdmin):
     list_display = ('id', 'room_type_title', 'room_number', 'category_title', 'maintenance_title', 'room_image', 'thumbnail_preview')
     list_display_links = ('id',)
-    search_fields = ('id',)
+    search_fields = ('id', 'room_type_title__room_type_title', 'room_number__room_number', 'category_title__category_title', 'maintenance_title__maintenance_title',)
     list_editable = ('room_type_title', 'room_number', 'category_title', 'maintenance_title', 'room_image')
     readonly_fields = ('thumbnail_preview',)
 
@@ -28,13 +28,18 @@ class RoomTypeAdmin(admin.ModelAdmin):
     search_fields = ('room_type_title',)
     list_editable = ('content',)
 
+class MaintenanceAdmin(admin.ModelAdmin):
+    form = MaintenanceAdminForm
+    list_display = ('maintenance_title', 'maintenance_description', 'maintenance_price', 'category', 'pdf_file')
+    list_display_links = ('maintenance_title',)
+    search_fields = ('maintenance_title',)
+    list_editable = ('maintenance_description', 'maintenance_price', 'category', 'pdf_file')
 
 admin.site.register(Order)
 admin.site.register(Room)
 admin.site.register(RoomType, RoomTypeAdmin)
-admin.site.register(Rate)
 admin.site.register(Price)
 admin.site.register(Block)
 admin.site.register(Gallery, GalleryAdmin)
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(Maintenance)
+admin.site.register(Maintenance, MaintenanceAdmin)

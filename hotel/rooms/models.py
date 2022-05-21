@@ -42,27 +42,15 @@ class RoomType(models.Model):
         verbose_name_plural = 'Типи номерів'
 
 class Price(models.Model):
-    numberofpeople = models.IntegerField()
-    rate = models.FloatField()
-    rate_0 = models.ForeignKey('Rate', models.DO_NOTHING, db_column='rate_id')  # Field renamed because of name conflict.
+    numberofpeople = models.IntegerField(verbose_name='Кількість осіб')
+    rate = models.FloatField(verbose_name='Ціна')
+    room_type_fk = models.ForeignKey('RoomType', models.DO_NOTHING, db_column='room_type_fk', blank=True, null=True, verbose_name='Тип кімнати')
 
     class Meta:
         managed = False
         db_table = 'price'
         verbose_name = 'Ціна'
         verbose_name_plural = 'Ціни'
-
-
-class Rate(models.Model):
-    rate_from_date = models.DateField()
-    rate_to_date = models.DateField()
-    room_type = models.ForeignKey('RoomType', models.DO_NOTHING, db_column='room_type')
-
-    class Meta:
-        managed = False
-        db_table = 'rate'
-        verbose_name = 'Тариф'
-        verbose_name_plural = 'Тарифи'
 
 class Block(models.Model):
     block_id = models.AutoField(primary_key=True)
@@ -126,8 +114,11 @@ class Category(models.Model):
 
 class Maintenance(models.Model):
     maintenance_title = models.CharField(primary_key=True, max_length=100,  verbose_name='Назва послуги')
-    maintenance_price = models.IntegerField(verbose_name='Ціна')
+    maintenance_price = models.IntegerField(blank=True, verbose_name='Ціна')
+    maintenance_description = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Опис послуги')
     category = models.ForeignKey(Category, models.DO_NOTHING, db_column='category', verbose_name='Категорія')
+    pdf_file = models.FileField(upload_to='uploads/pdf/', blank=True)
+
 
     class Meta:
         managed = False
@@ -136,10 +127,10 @@ class Maintenance(models.Model):
         verbose_name_plural = 'Обслуговування'
 
 class Order(models.Model):
-    category = models.ForeignKey(Category, models.DO_NOTHING, db_column='category', blank=True, null=True, verbose_name='Категорія')
+    maintenance = models.ForeignKey(Maintenance, models.DO_NOTHING, db_column='maintenance', blank=True, null=True, verbose_name='Послуга')
     room = models.ForeignKey(Room, models.DO_NOTHING, db_column='room', blank=True, null=True, verbose_name='Номер')
     client = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='client', blank=True, null=True, verbose_name='Клієнт')
-    registration_date = models.DateTimeField(blank=True, null=True, verbose_name='Дата реєстрації')
+    registration_date = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name='Дата реєстрації')
     is_paid_for = models.BooleanField(verbose_name='Сплачено?')
     is_confirmed = models.BooleanField(verbose_name='Підтверджено?')
     living_start_date = models.DateField(verbose_name='Дата заїду')
