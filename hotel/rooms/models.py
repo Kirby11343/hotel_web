@@ -10,7 +10,7 @@ from main.models import AuthUser
 class Room(models.Model):
     room_number = models.IntegerField(primary_key=True)
     room_type = models.ForeignKey('RoomType', models.DO_NOTHING, db_column='room_type', blank=True, null=True)
-    number_of_residents = models.IntegerField()
+    number_of_residents = models.ForeignKey('Price', models.DO_NOTHING, db_column='number_of_residents')
 
     class Meta:
         managed = False
@@ -49,6 +49,7 @@ class Price(models.Model):
     class Meta:
         managed = False
         db_table = 'price'
+        unique_together = (('numberofpeople', 'room_type_fk'),)
         verbose_name = 'Ціна'
         verbose_name_plural = 'Ціни'
 
@@ -129,7 +130,7 @@ class Maintenance(models.Model):
 class Order(models.Model):
     maintenance = models.ForeignKey(Maintenance, models.DO_NOTHING, db_column='maintenance', blank=True, null=True, verbose_name='Послуга')
     room = models.ForeignKey(Room, models.DO_NOTHING, db_column='room', blank=True, null=True, verbose_name='Номер')
-    client = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='client', blank=True, null=True, verbose_name='Клієнт')
+    client = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='client', verbose_name='Клієнт')
     registration_date = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name='Дата реєстрації')
     is_paid_for = models.BooleanField(verbose_name='Сплачено?')
     is_confirmed = models.BooleanField(verbose_name='Підтверджено?')

@@ -1,10 +1,12 @@
 {% load static %}
 
 <script type="text/javascript">
-function reply_click(id, type)
+function reply_click(id, type, number_of_res, cost)
   {
       sessionStorage.setItem('id_room', id);
       sessionStorage.setItem('type_room', type);
+      sessionStorage.setItem('number_of_res', number_of_res);
+      sessionStorage.setItem('cost', cost);
   }
 </script>
 
@@ -32,14 +34,20 @@ function reply_click(id, type)
                 <tr>
                   <td>{{ room.room_number }}</td>
                   <td>{{ room.room_type }}</td>
-                  <td>{{ room.number_of_residents }}</td>
+                  <td>{{ room.number_of_residents.numberofpeople }}</td>
                 </tr>
               </tbody>
+              <thead>
+                <tr>
+                  <th scope="col"><img height="25px" src="{% static 'icons/cash-coin.svg' %}"> Вартість:</th>
+                  <td colspan="2"> <span id="cost">{{ room.number_of_residents.rate }}</span> грн./день</td>
+                </tr>
+              </thead>
             </table>
 
             <div class="d-flex justify-content-center ">
               <a href="{% url 'create_order' %}">
-                <button onclick="reply_click({{ room.room_number }}, '{{ room.room_type }}')" type="button" class="btn btn-primary">Забронювати</button>
+                <button onclick="reply_click({{ room.room_number }}, '{{ room.room_type }}', {{ room.number_of_residents.numberofpeople }}, {{ room.number_of_residents.rate }})" type="button" class="btn btn-primary">Забронювати</button>
               </a>
             </div>
           </div>
