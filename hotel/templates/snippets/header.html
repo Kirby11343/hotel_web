@@ -30,7 +30,7 @@
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             {% if request.user.is_authenticated %}
-              <li><a class="dropdown-item" href="#">Особисті дані {{ user.username }}</a></li>
+              <li><a class="dropdown-item" href="{% url 'cabinet' user.pk %}">Особисті дані {{ user.username }}</a></li>
               <li><a class="dropdown-item" href="{% url 'logout'%}">Вихід</a></li>
             {% else %}
               <li><a class="dropdown-item" href="{% url 'register'%}">Реєстрація</a></li>

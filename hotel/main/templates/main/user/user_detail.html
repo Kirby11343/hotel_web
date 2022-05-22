@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block cabinet %}
+
+<div class="card bg-dark text-white">
+  <img style="max-height: 45vh; object-fit: cover;" src="{% static '/images/odessa_fifth_screen.jpg' %}" class="card-img" alt="...">
+</div>
+
+{% include 'snippets/bar_date.html' %}
+
+
+
+<div class="container">
+  <div class="card m-5 border-0 rounded-3">
+    <div class="card-body ">
+      <div class="d-flex flex-wrap justify-content-center m-4">
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col"><h4>Власні дані</h4></th>
+              <td><a href="{% url 'cabinet_update' user.pk %}"><button type="button" class="btn btn-primary">Редагувати</button></a></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Ім'я користувача</th>
+              <td>{{ account.username }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Ім'я</th>
+              <td>{{ account.first_name }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Прізвище</th>
+              <td>{{ account.last_name }}</td>
+            </tr>
+          <tr>
+              <th scope="row">Email адрес</th>
+              <td>{{ account.email }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        {% for order in orders %}
+          {{ order.id }}
+          {{ order.maintenance }}
+          {{ order.room.room_number }}
+          {{ order.registration_date }}
+          {{ order.is_paid_for }}
+          {{ order.is_confirmed }}
+          {{ order.living_start_date }}
+          {{ order.living_finish_date }}
+          {{ order.comment }}
+          {{ order.id_client }}
+          <br>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

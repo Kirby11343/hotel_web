@@ -8,9 +8,10 @@
         <div class="card-body rounded-3">
           <form method="POST">
             {% csrf_token %}
-          <select hidden name="client" id="id_client">
+          <select hidden name="id_client" id="id_id_client">
             <option value="{{ user.id }}" selected>{{ user.username }}</option>
           </select>
+
           <select hidden name="room" id="id_room">
             <option id="room" value="" selected></option>
           </select>

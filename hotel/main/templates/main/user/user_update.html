@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block cabinet %}
+
+
+
+
+<div class="card bg-dark text-white">
+  <img style="max-height: 45vh; object-fit: cover;" src="{% static '/images/odessa_fifth_screen.jpg' %}" class="card-img" alt="...">
+</div>
+
+{% include 'snippets/bar_date.html' %}
+
+
+<form method="post">
+  {% csrf_token %}
+  <div class="container">
+    <div class="card m-5 border-0 rounded-3">
+      <div class="card-body ">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col"><h4>Власні дані</h4></th>
+                <td><button type="submit" class="btn btn-primary">Зберегти</button></td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Ім'я користувача</th>
+                <td>{{ form.username }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Ім'я</th>
+                <td>{{ form.first_name }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Прізвище</th>
+                <td>{{ form.last_name}}</td>
+              </tr>
+            <tr>
+                <th scope="row">Email адрес</th>
+                <td>{{ form.email }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+{% endblock %}

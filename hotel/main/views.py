@@ -1,3 +1,4 @@
+from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Model
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -6,6 +7,8 @@ from django.views import generic
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
+
+from rooms.models import Order
 from .forms import NewUserForm, UserLoginForm, CustomPasswordResetFrom, CreateReviewForm
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
@@ -101,6 +104,26 @@ class UserView(ListView):
 
 	def get_queryset(self):
 		return Reviews.objects.order_by('id')
+
+class UserDetailView(DetailView):
+	model = AuthUser
+	template_name = 'main/user/user_detail.html'
+	context_object_name = 'account'
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(UserDetailView, self).get_context_data(*args, **kwargs)
+		context['orders'] = Order.objects.all().filter(id_client=self.object)
+		return context
+
+class UserUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+	model = AuthUser
+	template_name = 'main/user/user_update.html'
+	context_object_name = 'account'
+	fields = ('username', 'first_name', 'last_name', 'email')
+	success_message = "Власні дані було оновлено."
+
+	def get_success_url(self):
+		return reverse_lazy('cabinet', kwargs={'pk': self.object.pk})
 
 class CreateReviewView(LoginRequiredMixin, CreateView):
 	form_class = CreateReviewForm

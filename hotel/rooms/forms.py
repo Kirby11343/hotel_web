@@ -6,11 +6,7 @@ class RoomTypeAdminForm(forms.ModelForm):
     content = forms.CharField(widget=CKEditorUploadingWidget(), label="Зміст")
     class Meta:
         model = RoomType
-        # widgets = {
-        #     'content': forms.Textarea
-        # }
         fields = '__all__'
-
 
 class CategoryAdminForm(forms.ModelForm):
     category_description = forms.CharField(widget=CKEditorUploadingWidget(), label="Опис категорії")
@@ -32,15 +28,3 @@ class CreateOrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = '__all__'
-
-    def save(self, commit=True):
-        print("CHEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEECK")
-        order = super(CreateOrderForm, self).save(commit=False)
-        user = order.client.username
-        order.client.id = user
-        print("CHEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEECK")
-        print(order.client)
-        print(order.client.id)
-        print(order.client.username)
-        if commit:
-            order.save()

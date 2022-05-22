@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, get_object_or_404
+from django.contrib.messages.views import SuccessMessageMixin
 
 from .forms import CreateOrderForm
 from .models import *
@@ -43,8 +43,14 @@ class RoomTypeDetailView(DetailView):
         context['rooms'] = Room.objects.all().filter(room_type=self.object)
         return context
 
-class OrderCreateView(LoginRequiredMixin, CreateView):
+class OrderCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Order
     form_class = CreateOrderForm
-    # fields = ('maintenance', 'room', 'client', 'living_start_date', 'living_finish_date', 'comment')
     template_name = 'order/create_order.html'
+    success_message = "Замовлення було створено. Подивитися замовлення можливо у особистому кабінеті."
+    success_url = '/'
+
+    def form_valid(self, form):
+        order = form.save(commit=False)
+        order.id_client = self.request.user
+        return super(OrderCreateView, self).form_valid(form)

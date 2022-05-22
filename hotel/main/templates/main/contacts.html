@@ -7,6 +7,28 @@
   <img style="max-height: 45vh; object-fit: cover;" src="{% static '/images/odessa_fifth_screen.jpg' %}" class="card-img" alt="...">
 </div>
 
+<style>
+  #map{
+    height:400px;
+    width:100%;
+  }
+</style>
+<div id="map"></div>
+
+<script>
+  function initMap(){
+    var options = {
+      zoom:8,
+      center: {lat:46.482952, lng:30.712481}
+    }
+
+    var map = new google.maps.Map(document.getElementById('map'), options);
+  }
+</script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAItq_UNrmrmVMTfU2Rtu_EKeuy5hsR-9w&callback=initMap">
+</script>
+
 {% include 'snippets/bar_date.html' %}
 
 {% endblock %}

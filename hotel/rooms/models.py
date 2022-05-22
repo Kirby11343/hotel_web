@@ -130,8 +130,8 @@ class Maintenance(models.Model):
 class Order(models.Model):
     maintenance = models.ForeignKey(Maintenance, models.DO_NOTHING, db_column='maintenance', blank=True, null=True, verbose_name='Послуга')
     room = models.ForeignKey(Room, models.DO_NOTHING, db_column='room', blank=True, null=True, verbose_name='Номер')
-    client = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='client', verbose_name='Клієнт')
     registration_date = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name='Дата реєстрації')
+    id_client = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='id_client', verbose_name='Id клієнта')
     is_paid_for = models.BooleanField(verbose_name='Сплачено?')
     is_confirmed = models.BooleanField(verbose_name='Підтверджено?')
     living_start_date = models.DateField(verbose_name='Дата заїду')
