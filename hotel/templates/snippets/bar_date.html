@@ -2,9 +2,44 @@
 
 <nav class="navbar">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-      <img src="{% static '/images/favicon_odessa_hotel.png' %}" alt="" width="50"  height="50" class="d-inline-block align-text-top">
-      <img src="{% static '/images/odesa.png' %}" alt="" height="50" class="d-inline-block align-text-top">
-    </a>
+      <div class="container">
+        <form method="post">
+          {% csrf_token %}
+        <div class="row">
+            <div class="col-sm">
+              <span>
+                <h4 class="text-white">Гарантія кращої ціни</h4>
+                <p class="text-white">При бронюванні на сайті готеля</p>
+              </span>
+            </div>
+            <div class="col-sm my-auto">
+              <label class="text-white">Дата заїзду<input type="date" name="search_living_start_date" required id="id_search_living_start_date"></label>
+            </div>
+            <div class="col-sm my-auto">
+              <label class="text-white">Дата виїзду<input type="date" name="search_living_finish_date" required id="id_search_living_finish_date"></label>
+            </div>
+            <div class="col-sm my-auto">
+              <a href="{% url 'free_rooms' %}" class="btn btn-primary">Пошук вільних кімнат</a>
+            </div>
+        </div>
+        </form>
+      </div>
   </div>
 </nav>
+
+<script type="text/javascript">
+    window.first_date = new Date()
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    today = yyyy + '-' + mm + '-' + dd;
+    document.getElementById("id_search_living_start_date").setAttribute("min", today);
+    document.getElementById('id_search_living_start_date').onchange = function () {
+        first_date = new Date(this.value);
+        document.getElementById('id_search_living_finish_date').setAttribute('min',  this.value);
+    }
+    document.getElementById('id_search_living_finish_date').onchange = function () {
+        document.getElementById('id_search_living_start_date').setAttribute('max',  this.value);
+    }
+</script>

@@ -52,6 +52,11 @@ function reply_click(id, type, number_of_res, cost)
             </div>
           </div>
         </div>
+        {% empty %}
+            <div class="text-center">
+              <img height="200px" src="{% static '/icons/sad.png' %}" alt="...">
+              <h3>Немає вільних кімнат</h3>
+            </div>
         {% endfor %}
       </div>
     </div>

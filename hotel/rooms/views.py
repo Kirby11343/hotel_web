@@ -1,12 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import render
 
 from .forms import CreateOrderForm
 from .models import *
 from django.views.generic import ListView, DetailView, CreateView, DeleteView
 
+from .scripts import do_request
 
-# Create your views here.
 
 class GalleryListView(ListView):
     model = Gallery
@@ -20,10 +21,6 @@ class RoomTypeListView(ListView):
 class CategoryListView(ListView):
     model = Category
     template_name = 'category/category.html'
-
-    # def get_queryset(self):
-    #     category_title = self.kwargs['category_title']
-    #     return Category.objects.filter(category_title=category_title)
 
 class CategoryDetailView(DetailView):
     model = Category
@@ -42,6 +39,13 @@ class RoomTypeDetailView(DetailView):
         context = super(RoomTypeDetailView, self).get_context_data(*args, **kwargs)
         context['rooms'] = Room.objects.all().filter(room_type=self.object)
         return context
+
+def room_date_range_view(request):
+    free_rooms = do_request("SELECT * FROM show_free_rooms('2022-05-25', '2022-05-26')")
+    context = {
+        "free_rooms": free_rooms
+    }
+    return render(request, "room/room_type_detail.html", context)
 
 class OrderCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Order

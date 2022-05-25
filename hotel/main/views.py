@@ -22,7 +22,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import *
 
 def contacts_request(request):
-
 	return render (request=request, template_name="main/contacts.html")
 
 def password_reset_request(request):

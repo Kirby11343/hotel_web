@@ -3,13 +3,9 @@
 
 {% block contacts %}
 
-<div class="card bg-dark text-white">
-  <img style="max-height: 45vh; object-fit: cover;" src="{% static '/images/odessa_fifth_screen.jpg' %}" class="card-img" alt="...">
-</div>
-
 <style>
   #map{
-    height:400px;
+    height:600px;
     width:100%;
   }
 </style>
@@ -18,11 +14,15 @@
 <script>
   function initMap(){
     var options = {
-      zoom:8,
-      center: {lat:46.482952, lng:30.712481}
+      zoom:14,
+      center: {lat:46.501102, lng:30.739031}
     }
 
     var map = new google.maps.Map(document.getElementById('map'), options);
+    var marker = new google.maps.Marker({
+      position: {lat:46.501102, lng:30.739031},
+      map: map
+    });
   }
 </script>
 <script async defer
@@ -30,5 +30,37 @@
 </script>
 
 {% include 'snippets/bar_date.html' %}
+
+<div class="container d-flex justify-content-center w-75">
+    <div class="card-body">
+      <div class="card border-0 ">
+            <div class="card-body rounded-3">
+                <div class="row">
+                    <div class="text-left col-6">
+                        <ul>
+                            <ol><h4>Контакти</h4></ol>
+                            <ol><a class="t_d_none" href="https://www.google.com/maps/@46.5184985,30.7924513,12202m/data=!3m1!1e3">Odesa, 26/1, Test St.</a></ol>
+                            <ol><a class="t_d_none" href="mailto:brandodesa@htl.odesa.ua">brandodesa@htl.odesa.ua</a></ol>
+                            <ol><a class="t_d_none" href="tel:+38 044 444 44 44">+38 044 444 44 44</a></ol>
+                            <ol><a class="t_d_none" href="tel:+38 044 444 44 44">+38 055 444 66 44</a></ol>
+                        </ul>
+                    </div>
+                    <div class="text-center col-6">
+                        <ul>
+                            <ol><h2>Як дістатися</h2></ol>
+                            <ol>Готель розташований у центрі Одеси — всього за кілька кроків від готелю знаходиться історичні будівлі.
+                                У цій частині міста є безліч красивих старовинних будинків.</ol>
+                            <br>
+                            <ol>З вікон готелю Ви спостерігатимете мальовничі панорами стародавнього міста, могутнього Чорного моря та парку.
+                                Поблизу готелю знаходиться стадіон Черноморець, неподалік від готелю розташований залізничний вокзал.</ol>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+      </div>
+    </div>
+</div>
+
 
 {% endblock %}
