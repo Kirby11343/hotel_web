@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 
 from rooms.models import Order
-from .forms import NewUserForm, UserLoginForm, CustomPasswordResetFrom, CreateReviewForm
+from .forms import NewUserForm, UserLoginForm, CustomPasswordResetForm, CreateReviewForm
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode
@@ -26,7 +26,7 @@ def contacts_request(request):
 
 def password_reset_request(request):
 	if request.method == "POST":
-		password_reset_form = CustomPasswordResetFrom(request.POST)
+		password_reset_form = CustomPasswordResetForm(request.POST)
 		if password_reset_form.is_valid():
 			data = password_reset_form.cleaned_data['email']
 			associated_users = AuthUser.objects.filter(Q(email=data))
@@ -51,7 +51,7 @@ def password_reset_request(request):
 					messages.success(request, 'Повідомлення з інструкціями щодо відновлення пароля було надіслано на вашу папку "Вхідні".')
 					return redirect ("/password_reset/done/")
 			messages.error(request, 'Введено недійсну адресу електронної пошти.')
-	password_reset_form = CustomPasswordResetFrom()
+	password_reset_form = CustomPasswordResetForm()
 	return render(request=request, template_name="main/password/password_reset.html", context={"password_reset_form":password_reset_form})
 
 def register_request(request):
@@ -111,7 +111,7 @@ class UserDetailView(DetailView):
 
 	def get_context_data(self, *args, **kwargs):
 		context = super(UserDetailView, self).get_context_data(*args, **kwargs)
-		context['orders'] = Order.objects.all().filter(id_client=self.object)
+		context['orders'] = Order.objects.all().filter(id_client=self.object).order_by('-registration_date')
 		return context
 
 class UserUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):

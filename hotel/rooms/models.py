@@ -128,7 +128,6 @@ class Maintenance(models.Model):
         verbose_name_plural = 'Обслуговування'
 
 class Order(models.Model):
-    maintenance = models.ForeignKey(Maintenance, models.DO_NOTHING, db_column='maintenance', blank=True, null=True, verbose_name='Послуга')
     room = models.ForeignKey(Room, models.DO_NOTHING, db_column='room', blank=True, null=True, verbose_name='Номер')
     registration_date = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name='Дата реєстрації')
     id_client = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='id_client', verbose_name='Id клієнта')

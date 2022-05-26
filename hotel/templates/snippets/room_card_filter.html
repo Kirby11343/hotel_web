@@ -1,0 +1,65 @@
+{% load static %}
+
+<script type="text/javascript">
+function reply_click(id, type, number_of_res, cost, start, finish, d1)
+  {
+      sessionStorage.setItem('id_room', id);
+      sessionStorage.setItem('type_room', type);
+      sessionStorage.setItem('number_of_res', number_of_res);
+      sessionStorage.setItem('cost', cost);
+      sessionStorage.setItem('start', start);
+      sessionStorage.setItem('finish', finish);
+      sessionStorage.setItem('d1', d1);
+  }
+</script>
+
+<div class="container">
+  <div class="card m-5 border-0 rounded-3">
+    <div class="card-body ">
+
+        <span class="badge bg-primary d-flex flex-wrap justify-content-center"><p class="m-2">Вільні номери на дати: {{ d1 }} - {{ d2 }}</p></span>
+      <div class="d-flex flex-wrap justify-content-center m-4">
+        {% for room in free_rooms %}
+        <div class="card card-hover m-4" style="width: 25rem;">
+            <a href="{% url 'create_order' %}"><img class="d-block w-100" src="{{ room.4.url }}"></a>
+          <div class="card-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col"><img height="25px" src="{% static 'icons/123.svg' %}"> Номер кімнати</th>
+                  <th scope="col"><img height="25px" src="{% static 'icons/list.svg' %}"> Тип номеру</th>
+                  <th scope="col"><img height="25px" src="{% static 'icons/people.svg' %}"> Кількість осіб</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ room.0 }}</td>
+                  <td>{{ room.1 }}</td>
+                  <td>{{ room.2 }}</td>
+                </tr>
+              </tbody>
+              <thead>
+                <tr>
+                  <th scope="col"><img height="25px" src="{% static 'icons/cash-coin.svg' %}"> Вартість:</th>
+                  <td colspan="2"> <span id="cost">{{ room.3 }}</span> грн./день</td>
+                </tr>
+              </thead>
+            </table>
+
+            <div class="d-flex justify-content-center ">
+              <a href="{% url 'create_order' %}">
+                <button onclick="reply_click({{ room.0 }}, '{{ room.1 }}', {{ room.2 }}, {{ room.3 }}, '{{ d1 }}', '{{ d2 }}', '{{ d1 }}')" type="button" class="btn btn-primary">Забронювати</button>
+              </a>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+            <div class="text-center">
+              <img height="200px" src="{% static '/icons/sad.png' %}" alt="...">
+              <h3>Немає вільних кімнат</h3>
+            </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

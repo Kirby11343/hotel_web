@@ -49,7 +49,7 @@ class MaintenanceAdmin(admin.ModelAdmin):
 
 class OrderAdmin(admin.ModelAdmin):
     # form = CategoryAdminForm
-    list_display = ('id', 'maintenance', 'room', 'registration_date', 'id_client', 'is_paid_for', 'is_confirmed', 'living_start_date', 'living_finish_date', 'comment')
+    list_display = ('id', 'room', 'registration_date', 'id_client', 'is_paid_for', 'is_confirmed', 'living_start_date', 'living_finish_date', 'comment')
     list_display_links = ('id',)
     search_fields = ('id', 'room__room_number', 'id_client__id', 'living_start_date', 'living_finish_date',)
     list_editable = ('is_paid_for', 'is_confirmed')

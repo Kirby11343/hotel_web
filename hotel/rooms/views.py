@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render
+from django.urls import reverse_lazy
 
 from .forms import CreateOrderForm
 from .models import *
@@ -41,11 +42,15 @@ class RoomTypeDetailView(DetailView):
         return context
 
 def room_date_range_view(request):
-    free_rooms = do_request("SELECT * FROM show_free_rooms('2022-05-25', '2022-05-26')")
+    d1 = request.POST.get("search_living_start_date")
+    d2 = request.POST.get("search_living_finish_date")
+    free_rooms = do_request(f"SELECT * FROM show_free_rooms('{d1}', '{d2}')")
     context = {
-        "free_rooms": free_rooms
+        "free_rooms": free_rooms,
+        "d1": d1,
+        "d2": d2,
     }
-    return render(request, "room/room_type_detail.html", context)
+    return render(request, "room/rooms_filter.html", context)
 
 class OrderCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Order
@@ -58,3 +63,9 @@ class OrderCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
         order = form.save(commit=False)
         order.id_client = self.request.user
         return super(OrderCreateView, self).form_valid(form)
+
+class OrderDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+    model = Order
+    template_name = 'order/order_confirm_delete.html'
+    success_message = "Замовлення було видалено."
+    success_url = reverse_lazy('main')

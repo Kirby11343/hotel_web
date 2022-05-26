@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block room_type_detail %}
+{% load static %}
+
+<div class="card bg-dark text-white">
+  <img style="max-height: 45vh; object-fit: cover;" src="{% static '/images/odessa_second_screen.jpg' %}" class="card-img" alt="...">
+</div>
+
+{% include 'snippets/bar_date.html' %}
+
+<div class="pt-5 pb-3 w-100 container justify-content-center">
+  <h2 class="text-center">Номери та ціни</h2>
+  <p class="text-center">Готель на десятки номерів, серед яких однокімнатні, двокімнатні та трикімнатні апартаменти різних категорій з якісним цілодобовим обслуговуванням та найкращим у місті панорамним видом на мальовниче Чорне море.</p>
+</div>
+
+{% include 'snippets/room_card_filter.html' %}
+
+{% endblock %}

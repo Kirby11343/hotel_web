@@ -47,21 +47,21 @@
                 <td id="cost_per_day"></td>
               </tr>
               <tr>
-                <td><b>Дата заїзду</b></td>
-                <td><input type="date" name="living_start_date" required id="id_living_start_date"></td>
+                <td><b>Дата заїзду </b></td>
+                <td><input type="date" name="living_start_date" required id="id_living_start_date" value=""></td>
               </tr>
               <tr>
                 <td><b>Дата виїзду</b></td>
-                <td><input type="date" name="living_finish_date" required id="id_living_finish_date"></td>
+                <td><input type="date" name="living_finish_date" required id="id_living_finish_date" value=""></td>
               </tr>
               <tr>
                 <td><b>Коментарій</b></td>
                 <td><textarea required name="comment" cols="40" rows="5" class="form-control" id="id_comment">none</textarea></td>
               </tr>
               <tr>
-                <td><b>Загальна вартість</b></td>
-                <td id="total-cost"></td>
-              </tr>
+<!--              <td><b>Загальна вартість</b></td>-->
+<!--                <td id="total-cost"></td>-->
+<!--              </tr>-->
             </tbody>
           </table>
 
@@ -81,9 +81,16 @@
     var type = sessionStorage.getItem("type_room");
     var num_of_r = sessionStorage.getItem("number_of_res");
     var cost = sessionStorage.getItem("cost");
+    var start = sessionStorage.getItem("start");
+    var finish = sessionStorage.getItem("finish");
+    var d1 = sessionStorage.getItem("d1");
+
     window.first_date = new Date()
 
     document.getElementById("room").value = i;
+    document.getElementById("id_living_start_date").value = finish;
+    document.getElementById("id_living_finish_date").value = d1;
+
     document.getElementById("room").textContent="Room object ("+i+")";
     document.getElementById("number_room").textContent=i;
     document.getElementById("type_r").textContent=type;
@@ -94,20 +101,21 @@
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
-
     today = yyyy + '-' + mm + '-' + dd;
     document.getElementById("id_living_start_date").setAttribute("min", today);
+
 
     document.getElementById('id_living_start_date').onchange = function () {
         first_date = new Date(this.value);
         document.getElementById('id_living_finish_date').setAttribute('min',  this.value);
     }
-    document.getElementById('id_living_finish_date').onchange = function () {
-        const oneDay = 1000 * 60 * 60 * 24;
-        var second_date = new Date(this.value);
-        var diff = (second_date.getTime() - first_date.getTime()) / oneDay + 1;
-        document.getElementById("total-cost").textContent=diff * cost + " грн.";
-    };
+
+    //document.getElementById('id_living_finish_date').onchange = function () {
+    //    const oneDay = 1000 * 60 * 60 * 24;
+    //    var second_date = new Date(this.value);
+    //    var diff = (second_date.getTime() - first_date.getTime()) / oneDay + 1;
+    //   document.getElementById("total-cost").textContent=diff * cost + " грн.";
+    //};
 </script>
 
 

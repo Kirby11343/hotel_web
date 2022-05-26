@@ -94,7 +94,7 @@
                   </tr>
                   <tr>
                     <th scope="row">Дата виїзду</th>
-                    <td>{{ order.living_start_date }}</td>
+                    <td>{{ order.living_finish_date }}</td>
                   </tr>
                   <tr>
                     <th scope="row">Коментарій</th>
@@ -104,8 +104,7 @@
               </table>
 
               <div class="d-flex justify-content-center ">
-                <a href="" class="m-2 btn btn-primary">Редагувати</a>
-                <a href="" class="m-2 btn btn-danger">Видалити</a>
+                <a href="{% url 'delete_order' order.pk %}" class="m-2 btn btn-danger">Відмінити</a>
               </div>
             </div>
           </div>

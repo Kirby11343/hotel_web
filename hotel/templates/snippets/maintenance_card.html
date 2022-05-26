@@ -12,7 +12,7 @@
           <div class="card-body">
             <h6 class="card-title">Категорія: {{ maintenance.category }}</h6>
             <h5 class="card-title">{{ maintenance.maintenance_title }}</h5>
-            <p class="card-text">{{ maintenance.maintenance_description }}</p>
+            <p class="card-text">{{ maintenance.maintenance_description|safe }}</p>
             {% if maintenance.maintenance_price != None %}
             <p class="card-text">{{ maintenance.maintenance_price }}</p>
             {% endif %}

@@ -30,7 +30,7 @@ class ReviewsAdminForm(forms.ModelForm):
         fields = '__all__'
 
 
-class CustomPasswordResetFrom(PasswordResetForm):
+class CustomPasswordResetForm(PasswordResetForm):
 	email = forms.EmailField(label='Email адреса', widget=forms.EmailInput(attrs={'class': 'form-control'}))
 
 class UserLoginForm(AuthenticationForm):
