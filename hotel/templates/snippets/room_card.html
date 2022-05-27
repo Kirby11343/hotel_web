@@ -17,7 +17,9 @@ function reply_click(id, type, number_of_res, cost)
         {% for room in rooms %}
         <div class="card card-hover m-4" style="width: 25rem;">
           {% for img in room.gallery_set.all %}
-            <a href="{% url 'create_order' %}"><img class="d-block w-100" src="{{ img.room_image.url }}"></a>
+<!--            <a href="{% url 'create_order' %}">-->
+              <img class="d-block w-100" src="{{ img.room_image.url }}">
+<!--            </a>-->
           {% endfor %}
 
           <div class="card-body">
@@ -45,11 +47,11 @@ function reply_click(id, type, number_of_res, cost)
               </thead>
             </table>
 
-            <div class="d-flex justify-content-center ">
-              <a href="{% url 'create_order' %}">
-                <button onclick="reply_click({{ room.price_id }}, '{{ room.price_id }}', {{ room.price_id }}, {{ room.price_id }})" type="button" class="btn btn-primary">Забронювати</button>
-              </a>
-            </div>
+<!--            <div class="d-flex justify-content-center ">-->
+<!--              <a href="{% url 'create_order' %}">-->
+<!--                <button onclick="reply_click({{ room.price_id }}, '{{ room.price_id }}', {{ room.price_id }}, {{ room.price_id }})" type="button" class="btn btn-primary">Забронювати</button>-->
+<!--              </a>-->
+<!--            </div>-->
           </div>
         </div>
         {% empty %}
