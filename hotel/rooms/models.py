@@ -1,10 +1,10 @@
+from django.conf import settings
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from sorl.thumbnail import get_thumbnail
 from django.utils.html import format_html
 
-from main.models import AuthUser
 
 
 class Room(models.Model):
@@ -130,7 +130,7 @@ class Maintenance(models.Model):
 class Order(models.Model):
     room = models.ForeignKey(Room, models.DO_NOTHING, db_column='room', blank=True, null=True, verbose_name='Номер')
     registration_date = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name='Дата реєстрації')
-    id_client = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='id_client', verbose_name='Id клієнта')
+    id_client = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, db_column='id_client', verbose_name='Id клієнта')
     is_paid_for = models.BooleanField(verbose_name='Сплачено?')
     is_confirmed = models.BooleanField(verbose_name='Підтверджено?')
     living_start_date = models.DateField(verbose_name='Дата заїду')

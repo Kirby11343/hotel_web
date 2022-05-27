@@ -25,9 +25,10 @@
                                     <b>{{ review.author }}</b>, {{ review.timestamp_review|date:"d/m/y" }}
                                   </figcaption>
                                 </figure>
-                              {% if not user.username != review.author %}
+                              {% if user == review.author %}
                                   <div class="text-center">
-                                      Test
+                                        <a href="{% url 'update_review' review.pk %}"><img class="icon-hover" src="{% static 'icons/pencil.svg' %}"></a>
+                                        <a href="{% url 'delete_review' review.pk %}"><img class="icon-hover" src="{% static 'icons/trash3.svg' %}"></a>
                                   </div>
                               {% endif %}
 

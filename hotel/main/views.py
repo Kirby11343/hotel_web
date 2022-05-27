@@ -1,9 +1,6 @@
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import Model
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.urls import reverse_lazy
-from django.views import generic
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
@@ -92,7 +89,7 @@ def logout_request(request):
 
 class UserView(ListView):
 	template_name = 'main/main.html'
-	model = AuthUser
+	model = User
 	context_object_name = 'user_list'
 	def get_context_data(self, **kwargs):
 		context = super(UserView, self).get_context_data(**kwargs)
@@ -105,7 +102,7 @@ class UserView(ListView):
 		return Reviews.objects.order_by('id')
 
 class UserDetailView(DetailView):
-	model = AuthUser
+	model = User
 	template_name = 'main/user/user_detail.html'
 	context_object_name = 'account'
 
@@ -115,7 +112,7 @@ class UserDetailView(DetailView):
 		return context
 
 class UserUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
-	model = AuthUser
+	model = User
 	template_name = 'main/user/user_update.html'
 	context_object_name = 'account'
 	fields = ('username', 'first_name', 'last_name', 'email')
@@ -124,23 +121,29 @@ class UserUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
 	def get_success_url(self):
 		return reverse_lazy('cabinet', kwargs={'pk': self.object.pk})
 
-class CreateReviewView(LoginRequiredMixin, CreateView):
+class CreateReviewView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
 	form_class = CreateReviewForm
 	model = Reviews
+	success_message = "Коментар було створено."
 	template_name = 'main/review/create_review.html'
 	success_url = reverse_lazy('main')
+
 
 class DetailReviewView(LoginRequiredMixin, DetailView):
 	model = Reviews
 	template_name = 'main/review/detail_review.html'
 
-class UpdateReviewView(LoginRequiredMixin, UpdateView):
+class UpdateReviewView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
 	form_class = CreateReviewForm
 	model = Reviews
+	success_message = "Коментар було оновлено."
 	template_name = 'main/review/update_review.html'
+	success_url = reverse_lazy('main')
 
-class DeleteReviewView(LoginRequiredMixin, DeleteView):
+class DeleteReviewView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
 	model = Reviews
+	success_message = "Коментар було видалено."
+	template_name = 'main/review/delete_confirm_review.html'
 	success_url = reverse_lazy('main')
 
 

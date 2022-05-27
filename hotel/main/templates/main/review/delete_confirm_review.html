@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block delete_review %}
+<div style="height:550px;" class="container w-50">
+    <div class="card-body">
+      <div class="card border-0 ">
+        <div class="card-body rounded-3">
+            <div class="container d-flex justify-content-center">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <p>Ви дійсно бажаєте видалити коментар?</p>
+                    <input type="submit" class="btn btn-danger" value="Підтвердити" name="confirm_delete">
+                    <a href="{% url 'main' %}"><input type="button" class="btn btn-primary" value="Скасувати" name="confirm_delete"></a>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}

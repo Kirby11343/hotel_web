@@ -14,6 +14,8 @@ urlpatterns = [
 
     path("create_review", CreateReviewView.as_view(), name="create_review"),
     path("detail_review/<int:pk>", DetailReviewView.as_view(), name="detail_review"),
+    path("update_review/<int:pk>", UpdateReviewView.as_view(), name="update_review"),
+    path("review/<int:pk>/delete", DeleteReviewView.as_view(), name="delete_review"),
 
     path('accounts/', include('allauth.urls')),
 
