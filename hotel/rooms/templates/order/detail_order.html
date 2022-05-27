@@ -16,34 +16,6 @@
     <div class="card-body ">
       <div class="d-flex flex-wrap justify-content-center m-4">
 
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col"><h4>Власні дані</h4></th>
-              <td><a href="{% url 'cabinet_update' user.pk %}"><button type="button" class="btn btn-primary">Редагувати</button></a></td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">Ім'я користувача</th>
-              <td>{{ account.username }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Ім'я</th>
-              <td>{{ account.first_name }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Прізвище</th>
-              <td>{{ account.last_name }}</td>
-            </tr>
-          <tr>
-              <th scope="row">Email адрес</th>
-              <td>{{ account.email }}</td>
-            </tr>
-          </tbody>
-        </table>
-        {% for order in orders %}
-        <a class="t_d_none" href="{% url 'detail_order' order.pk %}">
           <div class="card card-hover m-4" style="width: 25rem;">
             <div class="card-body">
               <table class="table">
@@ -63,7 +35,7 @@
                   </tr>
                   <tr>
                     <th scope="row">Кількість людей</th>
-                    <td>{{ order.room.price.room_type_fk }}</td>
+                    <td>{{ order.room.price.numberofpeople }}</td>
                   </tr>
                   <tr>
                     <th scope="row">Дата створення замовлення</th>
@@ -113,8 +85,6 @@
               </div>
             </div>
           </div>
-          </a>
-        {% endfor %}
 
       </div>
     </div>

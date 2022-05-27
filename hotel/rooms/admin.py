@@ -22,10 +22,10 @@ class GalleryAdmin(admin.ModelAdmin):
     thumbnail_preview.allow_tags = True
 
 class RoomAdmin(admin.ModelAdmin):
-    list_display = ('room_number', 'room_type', 'number_of_residents')
+    list_display = ('room_number', 'price_id')
     list_display_links = ('room_number',)
-    search_fields = ('room_number', 'room_type', 'number_of_residents')
-    list_editable = ('room_type', 'number_of_residents')
+    search_fields = ('room_number',)
+    list_editable = ()
 
 class PriceAdmin(admin.ModelAdmin):
     list_display = ('id', 'numberofpeople', 'rate', 'room_type_fk')

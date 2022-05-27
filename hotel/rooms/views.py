@@ -38,7 +38,7 @@ class RoomTypeDetailView(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(RoomTypeDetailView, self).get_context_data(*args, **kwargs)
-        context['rooms'] = Room.objects.all().filter(room_type=self.object)
+        context['rooms'] = Room.objects.all().filter(price__room_type_fk=self.object)
         return context
 
 def room_date_range_view(request):
@@ -63,6 +63,13 @@ class OrderCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
         order = form.save(commit=False)
         order.id_client = self.request.user
         return super(OrderCreateView, self).form_valid(form)
+
+class OrderDetailView(SuccessMessageMixin, LoginRequiredMixin, DetailView):
+    model = Order
+    context_object_name = 'order'
+    # form_class = CreateOrderForm
+    template_name = 'order/detail_order.html'
+
 
 class OrderDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     model = Order

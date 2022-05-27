@@ -33,21 +33,21 @@ function reply_click(id, type, number_of_res, cost)
               <tbody>
                 <tr>
                   <td>{{ room.room_number }}</td>
-                  <td>{{ room.room_type }}</td>
-                  <td>{{ room.number_of_residents.numberofpeople }}</td>
+                  <td>{{ room.price.room_type_fk }}</td>
+                  <td>{{ room.price.numberofpeople }}</td>
                 </tr>
               </tbody>
               <thead>
                 <tr>
                   <th scope="col"><img height="25px" src="{% static 'icons/cash-coin.svg' %}"> Вартість:</th>
-                  <td colspan="2"> <span id="cost">{{ room.number_of_residents.rate }}</span> грн./день</td>
+                  <td colspan="2"> <span id="cost">{{ room.price.rate }}</span> грн./день</td>
                 </tr>
               </thead>
             </table>
 
             <div class="d-flex justify-content-center ">
               <a href="{% url 'create_order' %}">
-                <button onclick="reply_click({{ room.room_number }}, '{{ room.room_type }}', {{ room.number_of_residents.numberofpeople }}, {{ room.number_of_residents.rate }})" type="button" class="btn btn-primary">Забронювати</button>
+                <button onclick="reply_click({{ room.price_id }}, '{{ room.price_id }}', {{ room.price_id }}, {{ room.price_id }})" type="button" class="btn btn-primary">Забронювати</button>
               </a>
             </div>
           </div>

@@ -8,9 +8,8 @@ from django.utils.html import format_html
 
 
 class Room(models.Model):
-    room_number = models.IntegerField(primary_key=True)
-    room_type = models.ForeignKey('RoomType', models.DO_NOTHING, db_column='room_type', blank=True, null=True)
-    number_of_residents = models.ForeignKey('Price', models.DO_NOTHING, db_column='number_of_residents')
+    room_number = models.IntegerField(primary_key=True, verbose_name='Номер кімнати')
+    price = models.ForeignKey('Price', models.DO_NOTHING, verbose_name='Ціна та тип номеру')
 
     class Meta:
         managed = False
