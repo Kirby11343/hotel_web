@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block create_maintenance_order %}
+
+<div class="container d-flex justify-content-center w-50">
+    <div class="card-body">
+      <div class="card border-0 ">
+        <div class="card-body rounded-3">
+          <form method="POST">
+            {% csrf_token %}
+          <table class="table">
+            <tbody>
+              <tr>
+                <td><b>Клієнт</b></td>
+                <td>{{ user.username }}</td>
+              </tr>
+              <tr>
+                <td><b>Ім'я</b></td>
+                <td> {{ user.first_name }} </td>
+              </tr>
+              <tr>
+                <td><b>Прізвище</b></td>
+                <td> {{ user.last_name }} </td>
+              </tr>
+              <tr>
+                <td><b>Номер замовлення</b></td>
+                <td>{{ form.order }}</td>
+              </tr>
+              <tr>
+                <td><b>Назва обслуговування</b></td>
+                <td>{{ form.maintenance }}</td>
+              </tr>
+              <tr>
+                <td><b>Вартість за день</b></td>
+                <td id="price"></td>
+              </tr>
+              <tr>
+                <td><b>Коментарій</b></td>
+                <td><textarea required name="comment" cols="40" rows="5" class="form-control" id="id_comment">none</textarea></td>
+              </tr>
+              <tr>
+            </tbody>
+          </table>
+            <div class="d-flex justify-content-center ">
+              <a href="">
+                <button type="submit" class="btn btn-primary">Замовити</button>
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var price = sessionStorage.getItem("price");
+
+    //document.getElementById("room").value = i;
+
+    document.getElementById("price").textContent=price + " грн./день";
+</script>
+
+{% endblock %}

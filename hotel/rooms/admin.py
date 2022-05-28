@@ -47,6 +47,12 @@ class MaintenanceAdmin(admin.ModelAdmin):
     search_fields = ('maintenance_title',)
     list_editable = ('maintenance_description', 'maintenance_price', 'category', 'pdf_file')
 
+class MaintenanceOrdersAdmin(admin.ModelAdmin):
+    list_display = ('id', 'maintenance', 'used_date', 'order', 'comment')
+    list_display_links = ('id',)
+    search_fields = ('id', 'maintenance__maintenance_title', 'order__id', 'used_date',)
+    list_editable = ('maintenance', 'order', 'comment')
+
 class OrderAdmin(admin.ModelAdmin):
     # form = CategoryAdminForm
     list_display = ('id', 'room', 'registration_date', 'id_client', 'is_paid_for', 'is_confirmed', 'living_start_date', 'living_finish_date', 'comment')
@@ -60,6 +66,7 @@ class BlockAdmin(admin.ModelAdmin):
     search_fields = ('block_id', 'room__id')
     list_editable = ('room', 'block_start_date', 'block_finish_date', 'reason')
 
+admin.site.register(MaintenanceOrders, MaintenanceOrdersAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Room, RoomAdmin)
 admin.site.register(RoomType, RoomTypeAdmin)

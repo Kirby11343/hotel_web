@@ -8,6 +8,7 @@ urlpatterns = [
     path('category/', CategoryListView.as_view(), name="category"),
     path('category_detail/<slug:slug>/', CategoryDetailView.as_view(), name="category_detail"),
     path('create_order/', OrderCreateView.as_view(), name="create_order"),
+    path('maintenance_create/', MaintenanceCreateView.as_view(), name="maintenance_create"),
     path('<int:pk>/delete_order', OrderDeleteView.as_view(), name="delete_order"),
     path('detail_order/<int:pk>/', OrderDetailView.as_view(), name="detail_order"),
     path('rooms/', room_date_range_view, name="free_rooms"),

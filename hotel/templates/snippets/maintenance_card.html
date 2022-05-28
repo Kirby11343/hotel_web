@@ -1,5 +1,12 @@
 {% load static %}
 
+<script type="text/javascript">
+function reply_click(price)
+  {
+      sessionStorage.setItem('price', price);
+  }
+</script>
+
 <div class="container">
   <div class="card m-5 border-0 rounded-3">
     <div class="card-body ">
@@ -7,17 +14,30 @@
         {% for maintenance in maintenances %}
         <div class="card card-hover m-4" style="width: 25rem;">
           {% for image in maintenance.gallery_set.all %}
-              <img class="d-block w-100"c src="{{ image.room_image.url }}">
+            {% if maintenance.maintenance_price %}
+              <a href="{% url 'maintenance_create' %}">
+            {% endif %}
+                <img class="d-block w-100" src="{{ image.room_image.url }}">
+            {% if maintenance.maintenance_price %}
+              </a>
+            {% endif %}
             {% endfor %}
           <div class="card-body">
             <h6 class="card-title">Категорія: {{ maintenance.category }}</h6>
             <h5 class="card-title">{{ maintenance.maintenance_title }}</h5>
             <p class="card-text">{{ maintenance.maintenance_description|safe }}</p>
             {% if maintenance.maintenance_price != None %}
-            <p class="card-text">{{ maintenance.maintenance_price }}</p>
+            <p class="card-text">{{ maintenance.maintenance_price }} грн./день</p>
             {% endif %}
             {% if maintenance.pdf_file.url != None %}
               <a href="{{ maintenance.pdf_file.url }}"><button type="button" class="btn btn-primary">Відкрити меню</button></a>
+            {% endif %}
+            {% if maintenance.maintenance_price %}
+              <div class="">
+                <a href="{% url 'maintenance_create' %}">
+                  <button onclick="reply_click({{ maintenance.maintenance_price }})" type="button" class="btn btn-primary">Додати до замовлення</button>
+                </a>
+              </div>
             {% endif %}
           </div>
         </div>

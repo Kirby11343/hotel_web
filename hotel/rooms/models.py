@@ -119,12 +119,23 @@ class Maintenance(models.Model):
     category = models.ForeignKey(Category, models.DO_NOTHING, db_column='category', verbose_name='Категорія')
     pdf_file = models.FileField(upload_to='uploads/pdf/', blank=True)
 
-
     class Meta:
         managed = False
         db_table = 'maintenance'
         verbose_name = 'Обслуговування'
         verbose_name_plural = 'Обслуговування'
+
+class MaintenanceOrders(models.Model):
+    maintenance = models.ForeignKey(Maintenance, models.DO_NOTHING, db_column='maintenance', verbose_name='Обслуговування')
+    used_date = models.DateTimeField(blank=True, null=True, verbose_name='Дата створення')
+    order = models.ForeignKey('Order', models.DO_NOTHING, verbose_name='Замовлення')
+    comment = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Коментар')
+
+    class Meta:
+        managed = False
+        db_table = 'maintenance_orders'
+        verbose_name = 'Замовлення обслуговування'
+        verbose_name_plural = 'Замовлення обслуговувань'
 
 class Order(models.Model):
     room = models.ForeignKey(Room, models.DO_NOTHING, db_column='room', blank=True, null=True, verbose_name='Номер')

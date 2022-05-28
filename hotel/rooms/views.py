@@ -32,6 +32,12 @@ class CategoryDetailView(DetailView):
         context['maintenances'] = Maintenance.objects.all().filter(category=self.object)
         return context
 
+class MaintenanceCreateView(CreateView):
+    model = MaintenanceOrders
+    template_name = 'maintenance/maintenance_create.html'
+    context_object_name = 'maintenance_orders'
+    fields = ('maintenance', 'order', 'comment',)
+
 class RoomTypeDetailView(DetailView):
     model = RoomType
     template_name = 'room/room_type_detail.html'
