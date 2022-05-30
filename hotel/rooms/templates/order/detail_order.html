@@ -43,7 +43,7 @@
                   </tr>
                   <tr>
                     <th scope="row">Ціна за день</th>
-                    <td>{{ order.room.price.rate }} грн.</td>
+                    <td>{{ order.room.price.rate }} грн./день</td>
                   </tr>
                   <tr>
                     <th scope="row">Сплачено?</th>
@@ -79,12 +79,80 @@
                   </tr>
                 </tbody>
               </table>
-
               <div class="d-flex justify-content-center ">
                 <a href="{% url 'delete_order' order.pk %}" class="m-2 btn btn-danger">Відмінити</a>
               </div>
             </div>
           </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="card m-5 border-0 rounded-3">
+    <div class="card-body ">
+      <div class="d-flex flex-wrap justify-content-center m-4">
+
+        {% for morder in morders %}
+        <div class="card card-hover m-4" style="width: 25rem;">
+            <div class="card-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th colspan="2" scope="col"><h4>Додаткове замовлення №{{ morder.id }}</h4></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Назва обслуговування</th>
+                    <td>{{ morder.maintenance.maintenance_title }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Дата створення замовлення</th>
+                    <td>{{ morder.used_date  }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Номер замовлення</th>
+                    <td>{{ morder.order_id }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Ціна за день</th>
+                    <td>{{ morder.maintenance.maintenance_price }} грн./день</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Сплачено?</th>
+                    <td>
+                      {% if morder.is_paid_for %}
+                        Сплачено
+                      {% else %}
+                        Не сплачено
+                      {% endif %}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Підтверджено?</th>
+                    <td>
+                      {% if morder.is_confirmed %}
+                        Підтверджено
+                      {% else %}
+                        Не підтверджено
+                      {% endif %}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Коментарій</th>
+                    <td>{{ morder.comment }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="d-flex justify-content-center ">
+                <a href="{% url 'delete_morder' morder.pk %}" class="m-2 btn btn-danger">Відмінити</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
 
       </div>
     </div>

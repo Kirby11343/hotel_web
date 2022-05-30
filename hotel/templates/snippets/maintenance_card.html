@@ -1,9 +1,10 @@
 {% load static %}
 
 <script type="text/javascript">
-function reply_click(price)
+function reply_click(price, mt)
   {
       sessionStorage.setItem('price', price);
+      sessionStorage.setItem('mt', mt);
   }
 </script>
 
@@ -35,7 +36,7 @@ function reply_click(price)
             {% if maintenance.maintenance_price %}
               <div class="">
                 <a href="{% url 'maintenance_create' %}">
-                  <button onclick="reply_click({{ maintenance.maintenance_price }})" type="button" class="btn btn-primary">Додати до замовлення</button>
+                  <button onclick="reply_click({{ maintenance.maintenance_price }}, '{{ maintenance.maintenance_title }}')" type="button" class="btn btn-primary">Додати до замовлення</button>
                 </a>
               </div>
             {% endif %}

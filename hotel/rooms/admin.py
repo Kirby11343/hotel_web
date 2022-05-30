@@ -48,10 +48,10 @@ class MaintenanceAdmin(admin.ModelAdmin):
     list_editable = ('maintenance_description', 'maintenance_price', 'category', 'pdf_file')
 
 class MaintenanceOrdersAdmin(admin.ModelAdmin):
-    list_display = ('id', 'maintenance', 'used_date', 'order', 'comment')
+    list_display = ('id', 'maintenance', 'used_date', 'order', 'comment', 'is_paid_for', 'is_confirmed')
     list_display_links = ('id',)
-    search_fields = ('id', 'maintenance__maintenance_title', 'order__id', 'used_date',)
-    list_editable = ('maintenance', 'order', 'comment')
+    search_fields = ('id', 'maintenance__maintenance_title', 'order__id', 'used_date', 'is_paid_for', 'is_confirmed')
+    list_editable = ('maintenance', 'order', 'comment', 'is_paid_for', 'is_confirmed')
 
 class OrderAdmin(admin.ModelAdmin):
     # form = CategoryAdminForm

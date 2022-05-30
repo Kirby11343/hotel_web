@@ -24,11 +24,25 @@
               </tr>
               <tr>
                 <td><b>Номер замовлення</b></td>
-                <td>{{ form.order }}</td>
+                <td>
+                  <select name="order" required="" id="id_order">
+                    <option value="" selected="">---------</option>
+                    {% for order in orders %}
+                      {% if user == order.id_client %}
+                        <option value="{{ order.id }}">{{ order }}</option>
+                      {% endif %}
+                    {% endfor %}
+                  </select>
+                </td>
               </tr>
               <tr>
                 <td><b>Назва обслуговування</b></td>
-                <td>{{ form.maintenance }}</td>
+                <td>
+                  <span id="mt"></span>
+                  <select hidden name="maintenance" required="" id="id_maintenance">
+                    <option id="mtv" selected value="">Maintenance object (Сніданок у номер)</option>
+                  </select>
+                </td>
               </tr>
               <tr>
                 <td><b>Вартість за день</b></td>
@@ -54,8 +68,11 @@
 
 <script type="text/javascript">
     var price = sessionStorage.getItem("price");
+    var mt = sessionStorage.getItem("mt");
 
-    //document.getElementById("room").value = i;
+    document.getElementById("mt").textContent=mt;
+    document.getElementById("mtv").textContent="Maintenance object ("+ mt +")";
+    document.getElementById("mtv").value=mt;
 
     document.getElementById("price").textContent=price + " грн./день";
 </script>

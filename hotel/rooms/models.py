@@ -128,8 +128,10 @@ class Maintenance(models.Model):
 class MaintenanceOrders(models.Model):
     maintenance = models.ForeignKey(Maintenance, models.DO_NOTHING, db_column='maintenance', verbose_name='Обслуговування')
     used_date = models.DateTimeField(blank=True, null=True, verbose_name='Дата створення')
-    order = models.ForeignKey('Order', models.DO_NOTHING, verbose_name='Замовлення')
+    order = models.ForeignKey('Order', on_delete=models.CASCADE, verbose_name='Замовлення')
     comment = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Коментар')
+    is_paid_for = models.BooleanField(verbose_name='Сплачено?')
+    is_confirmed = models.BooleanField(verbose_name='Підтверджено?')
 
     class Meta:
         managed = False

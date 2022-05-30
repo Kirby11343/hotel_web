@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render
@@ -32,13 +34,33 @@ class CategoryDetailView(DetailView):
         context['maintenances'] = Maintenance.objects.all().filter(category=self.object)
         return context
 
-class MaintenanceCreateView(CreateView):
+class MaintenanceOrderCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = MaintenanceOrders
     template_name = 'maintenance/maintenance_create.html'
     context_object_name = 'maintenance_orders'
     fields = ('maintenance', 'order', 'comment',)
+    success_message = "Замовлення було створено. Подивитися замовлення можливо у особистому кабінеті."
+    success_url = reverse_lazy('main')
 
-class RoomTypeDetailView(DetailView):
+    def get_context_data(self, *args, **kwargs):
+        context = super(MaintenanceOrderCreateView, self).get_context_data(*args, **kwargs)
+        context['orders'] = Order.objects.all()
+        return context
+
+    def form_valid(self, form):
+        morder = form.save(commit=False)
+        morder.is_paid_for = False
+        morder.is_confirmed = False
+        morder.used_date = date.today()
+        return super(MaintenanceOrderCreateView, self).form_valid(form)
+
+class MaintenanceOrderDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+    model = MaintenanceOrders
+    template_name = 'order/order_confirm_delete.html'
+    success_message = "Додаткове замовлення було видалено."
+    success_url = reverse_lazy('main')
+
+class RoomTypeDetailView(LoginRequiredMixin, DetailView):
     model = RoomType
     template_name = 'room/room_type_detail.html'
 
@@ -63,7 +85,7 @@ class OrderCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     form_class = CreateOrderForm
     template_name = 'order/create_order.html'
     success_message = "Замовлення було створено. Подивитися замовлення можливо у особистому кабінеті."
-    success_url = '/'
+    success_url = reverse_lazy('main')
 
     def form_valid(self, form):
         order = form.save(commit=False)
@@ -76,9 +98,15 @@ class OrderDetailView(SuccessMessageMixin, LoginRequiredMixin, DetailView):
     # form_class = CreateOrderForm
     template_name = 'order/detail_order.html'
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(OrderDetailView, self).get_context_data(*args, **kwargs)
+        context['morders'] = MaintenanceOrders.objects.all().filter(order_id=self.object)
+        return context
+
 
 class OrderDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     model = Order
     template_name = 'order/order_confirm_delete.html'
     success_message = "Замовлення було видалено."
     success_url = reverse_lazy('main')
+
